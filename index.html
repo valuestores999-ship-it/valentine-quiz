@@ -218,6 +218,15 @@ body{
 </div>
 
 <script>
+// 🔧 DOM bindings (required)
+const startScreen = document.getElementById("startScreen");
+const quizScreen  = document.getElementById("quizScreen");
+const heading     = document.getElementById("heading");
+const question    = document.getElementById("question");
+const options     = document.getElementById("options");
+const popup       = document.getElementById("popup");
+const popupBox    = document.getElementById("popupBox");
+const card        = document.getElementById("card");
 const song1=document.getElementById("song1");
 const song2=document.getElementById("song2");
 song1.volume=0.5;
@@ -316,3 +325,4 @@ function typeText(text,id){
   const t=setInterval(()=>{
     el.textContent+=text[i++];
     if(i===text.length)
+
