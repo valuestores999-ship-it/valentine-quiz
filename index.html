@@ -8,9 +8,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 
 <style>
-@font-face {
-  font-family: 'Rockybilly';
-  src: url('Rockybilly.ttf') format('truetype');
+@font-face{
+  font-family:'Rockybilly';
+  src:url('Rockybilly.ttf') format('truetype');
 }
 
 *{
@@ -34,8 +34,7 @@ body{
   position:fixed;
   bottom:-40px;
   font-size:30px;
-  opacity:0.55;
-  filter:drop-shadow(0 0 10px rgba(255,255,255,.7));
+  opacity:.55;
   animation:floatUp linear infinite;
 }
 @keyframes floatUp{
@@ -52,7 +51,6 @@ body{
   padding:30px 26px 32px;
   box-shadow:0 30px 60px rgba(0,0,0,.3);
   animation:fadeUp .8s ease;
-  z-index:2;
 }
 @keyframes fadeUp{
   from{opacity:0;transform:translateY(30px);}
@@ -60,53 +58,21 @@ body{
 }
 
 /* Start screen */
-.start-title{
-  text-align:center;
-  font-size:20px;
-  font-weight:600;
-}
-.start-name{
-  text-align:center;
-  font-size:26px;
-  font-weight:600;
-  margin:10px 0 16px;
-}
-.start-caption{
-  text-align:center;
-  font-size:16px;
-  line-height:1.6;
-  margin-bottom:28px;
-}
+.start-title{font-size:20px;font-weight:600;text-align:center;}
+.start-name{font-size:26px;font-weight:600;text-align:center;margin:10px 0;}
+.start-caption{text-align:center;font-size:16px;line-height:1.6;margin-bottom:28px;}
 .start-btn{
-  background:#6b6cff;
-  color:#fff;
-  padding:14px;
-  border-radius:18px;
-  text-align:center;
-  font-size:16px;
-  cursor:pointer;
+  background:#6b6cff;color:#fff;padding:14px;border-radius:18px;
+  text-align:center;font-size:16px;cursor:pointer;
 }
 
 /* Quiz */
-.heading{
-  text-align:center;
-  font-weight:600;
-  margin-bottom:14px;
-}
-.question{
-  text-align:center;
-  font-size:18px;
-  margin-bottom:20px;
-}
+.heading{text-align:center;font-weight:600;margin-bottom:14px;}
+.question{text-align:center;font-size:18px;margin-bottom:20px;}
 .option{
-  border:2px solid #d8dcff;
-  padding:14px;
-  border-radius:16px;
-  margin-bottom:14px;
-  text-align:center;
-  cursor:pointer;
-  opacity:0;
-  animation:optionIn .6s ease forwards;
+  border:2px solid #d8dcff;padding:14px;border-radius:16px;
+  margin-bottom:14px;text-align:center;cursor:pointer;
+  opacity:0;animation:optionIn .6s forwards;
 }
 .option:nth-child(1){animation-delay:.1s}
 .option:nth-child(2){animation-delay:.2s}
@@ -119,28 +85,17 @@ body{
 }
 
 .option:hover{
-  background:#6b6cff;
-  color:#fff;
-  border-color:#6b6cff;
+  background:#6b6cff;color:#fff;border-color:#6b6cff;
 }
 
 /* Popup */
 .popup{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.35);
-  display:none;
-  justify-content:center;
-  align-items:center;
-  z-index:10;
+  position:fixed;inset:0;background:rgba(0,0,0,.35);
+  display:none;justify-content:center;align-items:center;
 }
 .popup-box{
-  background:#fff;
-  padding:36px;
-  border-radius:26px;
-  font-size:22px;
-  text-align:center;
-  animation:pop .4s ease;
+  background:#fff;padding:36px;border-radius:26px;
+  font-size:22px;text-align:center;animation:pop .4s ease;
 }
 @keyframes pop{
   0%{transform:scale(0);}
@@ -149,39 +104,27 @@ body{
 }
 
 /* Correct heart */
-.sky-heart{
-  font-size:72px;
-  animation:heartUp 1s ease;
-}
+.sky-heart{font-size:72px;animation:heartUp 1s ease;}
 @keyframes heartUp{
   0%{transform:scale(.3);opacity:0;}
   50%{transform:scale(1.3);opacity:1;}
   100%{transform:translateY(-30px);opacity:0;}
 }
 
-/* Rockybilly ONLY here */
+/* Signature */
 .signature{
   font-family:'Rockybilly',cursive;
-  font-size:28px; /* reduced size */
-  text-align:center;
+  font-size:28px;text-align:center;
 }
-.cursor{
-  border-right:2px solid #333;
-  padding-right:4px;
-}
+.cursor{border-right:2px solid #333;padding-right:4px;}
 </style>
 </head>
 
 <body>
 
-<!-- 🎶 MUSIC -->
-<audio id="song1" preload="auto">
-  <source src="Hayyoda_x_Remo_BGM_TAMIL_Jenushan_Anirudh_128KBPS.mp4" type="audio/mp4">
-</audio>
-
-<audio id="song2" preload="auto">
-  <source src="Oorum_Blood_Unplugged_Dude_Pradeep_Ranganathan_Mamitha_Baiju_Sai_Abhyankkar_Keerthiswaran_256kbps.webm" type="audio/webm">
-</audio>
+<!-- MUSIC -->
+<audio id="song1"><source src="Hayyoda_x_Remo_BGM_TAMIL_Jenushan_Anirudh_128KBPS.mp4" type="audio/mp4"></audio>
+<audio id="song2"><source src="Oorum_Blood_Unplugged_Dude_Pradeep_Ranganathan_Mamitha_Baiju_Sai_Abhyankkar_Keerthiswaran_256kbps.webm" type="audio/webm"></audio>
 
 <div class="hearts">
   <span style="left:10%;animation-duration:18s">🩵</span>
@@ -193,18 +136,13 @@ body{
 
 <div class="card" id="card">
 
-<!-- START -->
 <div id="startScreen">
   <div class="start-title">⚠️ Warning: Valentine-level cuteness ahead 💋</div>
   <div class="start-name">Sony Maa</div>
-  <div class="start-caption">
-    A tiny quiz made with a lot of love 💕<br>
-    Ready?
-  </div>
+  <div class="start-caption">A tiny quiz made with a lot of love 💕<br>Ready?</div>
   <div class="start-btn" onclick="startQuiz()">Begin 💌</div>
 </div>
 
-<!-- QUIZ -->
 <div id="quizScreen" style="display:none;">
   <div class="heading" id="heading"></div>
   <div class="question" id="question"></div>
@@ -218,42 +156,41 @@ body{
 </div>
 
 <script>
-// 🔧 DOM bindings (required)
-const startScreen = document.getElementById("startScreen");
-const quizScreen  = document.getElementById("quizScreen");
-const heading     = document.getElementById("heading");
-const question    = document.getElementById("question");
-const options     = document.getElementById("options");
-const popup       = document.getElementById("popup");
-const popupBox    = document.getElementById("popupBox");
-const card        = document.getElementById("card");
+// DOM bindings
+const startScreen=document.getElementById("startScreen");
+const quizScreen=document.getElementById("quizScreen");
+const heading=document.getElementById("heading");
+const question=document.getElementById("question");
+const options=document.getElementById("options");
+const popup=document.getElementById("popup");
+const popupBox=document.getElementById("popupBox");
+const card=document.getElementById("card");
 const song1=document.getElementById("song1");
 const song2=document.getElementById("song2");
-song1.volume=0.5;
-song2.volume=0.5;
+
+song1.volume=.5;
+song2.volume=.5;
 song1.onended=()=>song2.play();
 
 const quiz=[
- {h:"💝 Valentine Pop Quiz 💝",q:"Who loves you the most?",o:["The one who misses you silently 🌙","The one who built this quiz just for you 💻💘","The one who smiles when you smile 😊","The one who sends good morning texts ☀️"],c:1},
- {h:"💕 MCQ for my favorite human 💕",q:"Our love is…",o:["Soft and comforting 🤍","Fun and chaotic 😜","Growing stronger every day 🌱","All of this together ❤️"],c:3},
- {h:"😘 Quick quiz, babe 😘",q:"My favorite place?",o:["Somewhere calm and quiet 🌊","Wherever food is good 🍕","Wherever you are 💑","Anywhere with Wi-Fi 📶"],c:2},
- {h:"💘 Valentine MCQ 💘",q:"Who owns my heart?",o:["The one who understands me 🧠❤️","The one reading this right now 😍","The one who makes me laugh 😂","The one who feels like home 🏡"],c:1},
- {h:"🫶 Pop quiz time 🫶",q:"What makes me smile instantly?",o:["Random memes 😄","Good news 📰✨","Your presence 🥰","You, without even trying 💞"],c:3},
- {h:"💕 Valentine MCQ 💕",q:"When I imagine my future, I see…",o:["Stability and peace 🌸","Growth and happiness 🌈","Love that lasts forever ♾️","Us, side by side 💍"],c:3},
- {h:"😘 Love quiz for my heart 😘",q:"The safest place in the world is…",o:["Somewhere familiar 🏠","Where I feel understood 🤍","Right next to you 🫶","Anywhere quiet 🌌"],c:2},
- {h:"💘 Romantic pop quiz 💘",q:"Who makes my heart feel at home?",o:["The one who listens 👂","The one who stays 🫂","The one who chooses me daily 🌹","You 😌"],c:3},
- {h:"💝 MCQ but make it love 💝",q:"My favorite ‘I love you’ is…",o:["When you check if I ate 🍽️","When you remember small things 🧠💕","When you understand me silently 🤫❤️","All the little ways you show it 💘"],c:3},
- {h:"💞 Valentine test 💞",q:"What do I want more than anything?",o:["Peace of mind 🧘","Time that feels meaningful ⏳","A future that feels right 🌟","A lifetime with you 💍"],c:3},
- {h:"❤️ Heart quiz ❤️",q:"Who makes ordinary days feel magical?",o:["Unexpected surprises 🎁","Good conversations 💬","You ✨","Love itself 💖"],c:2},
- {h:"💕 MCQ but make it romantic 💕",q:"My forever Valentine is…",o:["The one who knows my flaws 😌","The one who stays anyway 🤍","The one who feels like destiny 🌙","You, always you ♾️"],c:3},
- {h:"💍 One last thing… 💍",q:"Will you be my Valentine, Sony Maa?",o:["I already am 💕","Of course 😍","Always 😘","No 🙈"],c:0,special:true}
+{h:"💝 Valentine Pop Quiz 💝",q:"Who loves you the most?",o:["The one who misses you silently 🌙","The one who built this quiz just for you 💻💘","The one who smiles when you smile 😊","The one who sends good morning texts ☀️"],c:1},
+{h:"💕 MCQ for my favorite human 💕",q:"Our love is…",o:["Soft and comforting 🤍","Fun and chaotic 😜","Growing stronger every day 🌱","All of this together ❤️"],c:3},
+{h:"😘 Quick quiz, babe 😘",q:"My favorite place?",o:["Somewhere calm 🌊","Food places 🍕","Wherever you are 💑","Anywhere with Wi-Fi 📶"],c:2},
+{h:"💘 Valentine MCQ 💘",q:"Who owns my heart?",o:["Understands me 🧠❤️","You 😍","Makes me laugh 😂","Feels like home 🏡"],c:1},
+{h:"🫶 Pop quiz time 🫶",q:"What makes me smile instantly?",o:["Random memes 😄","Good news 📰✨","Your presence 🥰","You, without even trying 💞"],c:3},
+{h:"💕 Valentine MCQ 💕",q:"When I imagine my future, I see…",o:["Peace 🌸","Growth 🌈","Forever ♾️","Us 💍"],c:3},
+{h:"😘 Love quiz 😘",q:"The safest place in the world is…",o:["Home 🏠","Understanding 🤍","Next to you 🫶","Silence 🌌"],c:2},
+{h:"💘 Romantic pop quiz 💘",q:"Who makes my heart feel at home?",o:["Listener 👂","Stayer 🫂","Chooser 🌹","You 😌"],c:3},
+{h:"💝 MCQ but make it love 💝",q:"My favorite ‘I love you’ is…",o:["Care 🍽️","Memory 🧠💕","Silence 🤫❤️","All of it 💘"],c:3},
+{h:"💞 Valentine test 💞",q:"What do I want more than anything?",o:["Peace 🧘","Time ⏳","Future 🌟","Lifetime with you 💍"],c:3},
+{h:"❤️ Heart quiz ❤️",q:"Who makes ordinary days magical?",o:["Surprises 🎁","Talks 💬","You ✨","Love 💖"],c:2},
+{h:"💕 Romantic MCQ 💕",q:"My forever Valentine is…",o:["Knows flaws 😌","Stays 🤍","Destiny 🌙","You ♾️"],c:3},
+{h:"💍 One last thing… 💍",q:"Will you be my Valentine, Sony Maa?",o:["I already am 💕","Of course 😍","Always 😘","No 🙈"],c:0,special:true}
 ];
 
 const funny=[
- "😂 Nope!","🙈 Try again!","😜 Almost!","💭 Think like my Valentine!",
- "😅 Cute guess, but no!","🤭 Not this one, love",
- "💘 Heart says try again","😏 You know the answer",
- "🙃 System says: nope","🥰 Close… but not quite"
+"😂 Nope!","🙈 Try again!","😜 Almost!","💭 Think like my Valentine!",
+"😅 Cute guess","🤭 Not this one","💘 Try again","😏 You know it","🙃 Nope","🥰 Almost"
 ];
 
 let index=0;
@@ -288,7 +225,7 @@ function answer(i){
   }
 
   if(i===quiz[index].c){
-    popupBox.innerHTML=`<div class="sky-heart">🩵</div>`;
+    popupBox.innerHTML='<div class="sky-heart">🩵</div>';
     setTimeout(()=>{
       popup.style.display="none";
       index++;
@@ -302,19 +239,16 @@ function answer(i){
 
 function finish(){
   card.innerHTML=`
-    <div style="text-align:center;font-size:20px;font-weight:600">
-      Congratulations Sony Maa
-    </div>
-    <p style="margin-top:18px;font-size:16px;line-height:1.7">
-      You officially know me better than I know myself 🥹<br><br>
-      Side effects include: unlimited hugs 🤗,<br>
-      lifetime teasing 😜,<br>
-      and being stuck with me forever ♾️💍
-      <br><br>
-      With all my heart,<br>
-      <div class="signature" id="sign"></div>
-    </p>
-  `;
+  <div style="text-align:center;font-size:20px;font-weight:600">
+    Congratulations Sony Maa
+  </div>
+  <p style="margin-top:18px;font-size:16px;line-height:1.7">
+    You officially know me better than I know myself 🥹<br><br>
+    Unlimited hugs 🤗, lifetime teasing 😜,<br>
+    and being stuck with me forever ♾️💍<br><br>
+    With all my heart,<br>
+    <div class="signature" id="sign"></div>
+  </p>`;
   typeText("Venkat to my Sony Maa","sign");
 }
 
@@ -324,5 +258,13 @@ function typeText(text,id){
   let i=0;
   const t=setInterval(()=>{
     el.textContent+=text[i++];
-    if(i===text.length)
+    if(i===text.length){
+      clearInterval(t);
+      el.classList.remove("cursor");
+    }
+  },120);
+}
+</script>
 
+</body>
+</html>
