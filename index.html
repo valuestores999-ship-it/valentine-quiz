@@ -110,37 +110,62 @@ body{
 }
 
 
-/* Popup */
+/* Popup overlay */
 .popup{
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,.35);
+  background:rgba(0,0,0,0.35);
   display:none;
   justify-content:center;
   align-items:center;
-  z-index:999;   /* 🔥 THIS FIXES IT */
+  z-index:999;
+  animation:fadeBg .25s ease;
 }
 
-..popup-box{
+/* Popup box – CENTER ONLY */
+.popup-box{
   background:#fff;
   padding:36px;
   border-radius:26px;
   font-size:22px;
   text-align:center;
 
-  /* IMPORTANT */
-  animation:none;
-  transform:none;
+  /* important */
+  transform:scale(0.85);
+  opacity:0;
+  animation:popupIn .35s ease forwards;
 }
 
-
-/* Correct heart */
-.sky-heart{font-size:72px;animation:heartUp 1s ease;}
-@keyframes heartUp{
-  0%{transform:scale(.3);opacity:0;}
-  50%{transform:scale(1.3);opacity:1;}
-  100%{transform:translateY(-30px);opacity:0;}
+/* Overlay fade */
+@keyframes fadeBg{
+  from{opacity:0;}
+  to{opacity:1;}
 }
+
+/* Center pop (NO SIDE MOVEMENT) */
+@keyframes popupIn{
+  0%{
+    transform:scale(0.85);
+    opacity:0;
+  }
+  100%{
+    transform:scale(1);
+    opacity:1;
+  }
+}
+
+/* Heart animation (unchanged, but smoother) */
+.sky-heart{
+  font-size:72px;
+  animation:heartPulse 1s ease;
+}
+
+@keyframes heartPulse{
+  0%{transform:scale(0.4);opacity:0;}
+  50%{transform:scale(1.2);opacity:1;}
+  100%{transform:scale(1);opacity:1;}
+}
+
 
 
 /* Signature */
@@ -200,6 +225,16 @@ const card=document.getElementById("card");
 const song1=document.getElementById("song1");
 const song2=document.getElementById("song2");
 
+  function closePopup(delay){
+  setTimeout(()=>{
+    popup.style.opacity = "0";
+    setTimeout(()=>{
+      popup.style.display = "none";
+      popup.style.opacity = "1";
+    },200);
+  },delay);
+}
+
 song1.volume=.5;
 song2.volume=.5;
 song1.onended=()=>song2.play();
@@ -252,20 +287,20 @@ function answer(i){
 
   if(quiz[index].special && i===3){
     popupBox.innerText="❌ Invalid option.\nSystem override: You are already my Valentine 😌💖";
-    setTimeout(()=>popup.style.display="none",1200);
+   closePopup(1200);
     return;
   }
 
   if(i===quiz[index].c){
     popupBox.innerHTML='<div class="sky-heart">🩵</div>';
     setTimeout(()=>{
-      popup.style.display="none";
+     closePopup(900);
       index++;
       index<quiz.length?loadQ():finish();
     },900);
   }else{
     popupBox.innerText=funny[Math.random()*funny.length|0];
-    setTimeout(()=>popup.style.display="none",800);
+   closePopup(800);
   }
 }
 
@@ -300,6 +335,7 @@ function typeText(text,id){
 
 </body>
 </html>
+
 
 
 
