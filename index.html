@@ -111,23 +111,23 @@ body{
 
 
 /* Popup overlay */
-.popup{
+..popup{
   position:fixed;
   inset:0;
   background:rgba(0,0,0,0.35);
-  display:none;
+  display:flex;
   justify-content:center;
   align-items:center;
   z-index:999;
 
   opacity:0;
+  pointer-events:none;
   transition:opacity 0.25s ease;
 }
 
-/* Popup visible */
 .popup.show{
-  display:flex;
   opacity:1;
+  pointer-events:auto;
 }
 
 /* Popup box */
@@ -236,14 +236,16 @@ const song2=document.getElementById("song2");
 function showPopup(content){
   popupBox.innerHTML = content;
 
-  // 🔥 FULL reset for iOS
-  popup.classList.remove("show");
+  // reset popup-box animation (important for replay)
   popupBox.style.transform = "scale(0.85)";
   popupBox.style.opacity = "0";
-
-  void popup.offsetHeight; // force reflow
+  void popupBox.offsetHeight;
 
   popup.classList.add("show");
+
+  // trigger box animation
+  popupBox.style.transform = "scale(1)";
+  popupBox.style.opacity = "1";
 }
 
 function hidePopup(delay){
@@ -251,6 +253,7 @@ function hidePopup(delay){
     popup.classList.remove("show");
   }, delay);
 }
+
 
 
 song1.volume=.5;
@@ -357,6 +360,7 @@ function typeText(text,id){
 
 </body>
 </html>
+
 
 
 
