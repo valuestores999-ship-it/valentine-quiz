@@ -50,17 +50,17 @@ body{
   border-radius:30px;
   padding:30px 26px 32px;
   box-shadow:0 30px 60px rgba(0,0,0,.3);
-  animation:fadeUp .8s ease;
+  animation:fadeUp .6s ease;
 }
 @keyframes fadeUp{
-  from{opacity:0;transform:translateY(30px);}
+  from{opacity:0;transform:translateY(25px);}
   to{opacity:1;transform:translateY(0);}
 }
 
 /* Start screen */
-.start-title{font-size:20px;font-weight:600;text-align:center;}
-.start-name{font-size:26px;font-weight:600;text-align:center;margin:10px 0;}
-.start-caption{text-align:center;font-size:16px;line-height:1.6;margin-bottom:28px;}
+.start-title{text-align:center;font-weight:600;font-size:20px;}
+.start-name{text-align:center;font-size:26px;font-weight:600;margin:12px 0;}
+.start-caption{text-align:center;font-size:16px;line-height:1.6;margin-bottom:26px;}
 .start-btn{
   background:#6b6cff;color:#fff;padding:14px;border-radius:18px;
   text-align:center;font-size:16px;cursor:pointer;
@@ -70,22 +70,21 @@ body{
 .heading{text-align:center;font-weight:600;margin-bottom:14px;}
 .question{text-align:center;font-size:18px;margin-bottom:20px;}
 .option{
-  border:2px solid #d8dcff;padding:14px;border-radius:16px;
-  margin-bottom:14px;text-align:center;cursor:pointer;
-  opacity:0;animation:optionIn .6s forwards;
+  border:2px solid #d8dcff;
+  padding:14px;
+  border-radius:16px;
+  margin-bottom:14px;
+  text-align:center;
+  cursor:pointer;
+  animation:optionIn .4s ease forwards;
 }
-.option:nth-child(1){animation-delay:.1s}
-.option:nth-child(2){animation-delay:.2s}
-.option:nth-child(3){animation-delay:.3s}
-.option:nth-child(4){animation-delay:.4s}
-
 @keyframes optionIn{
   from{opacity:0;transform:translateY(12px);}
   to{opacity:1;transform:translateY(0);}
 }
 
-/* Disable hover on touch devices */
-@media (hover: hover) and (pointer: fine){
+/* Hover desktop only */
+@media (hover:hover){
   .option:hover{
     background:#6b6cff;
     color:#fff;
@@ -93,93 +92,47 @@ body{
   }
 }
 
-
-/* Prevent stuck highlight on mobile (iOS fix) */
-.option:focus,
-.option:focus-visible{
-  outline:none;
-  background:transparent;
-  color:inherit;
-  border-color:#d8dcff;
-}
-
-/* Ensure highlight is only momentary */
-.option{
-  -webkit-user-select:none;
-  user-select:none;
-}
-
-
-/* Popup overlay */
-..popup{
+/* Popup */
+.popup{
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,0.35);
-  display:flex;
+  background:rgba(0,0,0,.35);
+  display:none;
   justify-content:center;
   align-items:center;
   z-index:999;
-
-  opacity:0;
-  pointer-events:none;
-  transition:opacity 0.25s ease;
 }
+.popup.show{display:flex;}
 
-.popup.show{
-  opacity:1;
-  pointer-events:auto;
-}
-
-/* Popup box */
 .popup-box{
   background:#fff;
   padding:36px;
   border-radius:26px;
   font-size:22px;
   text-align:center;
-
-  transform:scale(0.85);
-  opacity:0;
-  transition:
-    transform 0.35s cubic-bezier(.22,.61,.36,1),
-    opacity 0.25s ease;
+  animation:pop .35s ease;
+}
+@keyframes pop{
+  0%{transform:scale(.8);opacity:0;}
+  100%{transform:scale(1);opacity:1;}
 }
 
-/* Popup box visible */
-.popup.show .popup-box{
-  transform:scale(1);
-  opacity:1;
-}
-
-
-/* Heart animation (unchanged, but smoother) */
+/* Heart */
 .sky-heart{
   font-size:72px;
-  animation:heartPulse 0.4s ease;
+  animation:heart .45s ease;
 }
-
-
-@keyframes popupAnim{
-  0%{
-    transform:scale(0.85);
-    opacity:0;
-  }
-  100%{
-    transform:scale(1);
-    opacity:1;
-  }
-}
-
-@keyframes heartPulse{
-  0%{transform:scale(0.4);opacity:0;}
+@keyframes heart{
+  0%{transform:scale(.4);opacity:0;}
   50%{transform:scale(1.2);opacity:1;}
   100%{transform:scale(1);opacity:1;}
 }
-  
+
 /* Signature */
 .signature{
   font-family:'Rockybilly',cursive;
-  font-size:20px;text-align:center;
+  font-size:20px;
+  text-align:center;
 }
 .cursor{border-right:2px solid #333;padding-right:4px;}
 </style>
@@ -188,8 +141,12 @@ body{
 <body>
 
 <!-- MUSIC -->
-<audio id="song1"><source src="Hayyoda_x_Remo_BGM_TAMIL_Jenushan_Anirudh_256kbps.webm" type="audio/webm"></audio>
-<audio id="song2"><source src="Oorum_Blood_Unplugged_Dude_Pradeep_Ranganathan_Mamitha_Baiju_Sai_Abhyankkar_Keerthiswaran_256kbps.webm" type="audio/webm"></audio>
+<audio id="song1">
+  <source src="Hayyoda_x_Remo_BGM_TAMIL_Jenushan_Anirudh_256kbps.webm">
+</audio>
+<audio id="song2">
+  <source src="Oorum_Blood_Unplugged_Dude_Pradeep_Ranganathan_Mamitha_Baiju_Sai_Abhyankkar_Keerthiswaran_256kbps.webm">
+</audio>
 
 <div class="hearts">
   <span style="left:10%;animation-duration:18s">🩵</span>
@@ -202,8 +159,8 @@ body{
 <div class="card" id="card">
 
 <div id="startScreen">
-  <div class="start-title">⚠️ Warning: Valentine-level cuteness ahead 💋</div>
-  <div class="start-name">Sony Maa 🩵</div>
+  <div class="start-title">⚠️ Valentine-level cuteness ahead 💋</div>
+  <div class="start-name">SONY MAA 🩵</div>
   <div class="start-caption">A tiny quiz made with a lot of love 💕<br>Ready?</div>
   <div class="start-btn" onclick="startQuiz()">Begin 💌</div>
 </div>
@@ -221,117 +178,98 @@ body{
 </div>
 
 <script>
-// DOM bindings
-const startScreen=document.getElementById("startScreen");
-const quizScreen=document.getElementById("quizScreen");
-const heading=document.getElementById("heading");
-const question=document.getElementById("question");
-const options=document.getElementById("options");
 const popup=document.getElementById("popup");
 const popupBox=document.getElementById("popupBox");
-const card=document.getElementById("card");
 const song1=document.getElementById("song1");
 const song2=document.getElementById("song2");
-
-function showPopup(content){
-  popupBox.innerHTML = content;
-
-  // reset popup-box animation (important for replay)
-  popupBox.style.transform = "scale(0.85)";
-  popupBox.style.opacity = "0";
-  void popupBox.offsetHeight;
-
-  popup.classList.add("show");
-
-  // trigger box animation
-  popupBox.style.transform = "scale(1)";
-  popupBox.style.opacity = "1";
-}
-
-function hidePopup(delay){
-  setTimeout(()=>{
-    popup.classList.remove("show");
-  }, delay);
-}
-
-
 
 song1.volume=.5;
 song2.volume=.5;
 song1.onended=()=>song2.play();
 
-const quiz=[
-{h:"💝 Valentine Pop Quiz 💝",q:"Who loves you the most?",o:["The one who misses you silently 🌙","The one who built this quiz just for you 💻💘","The one who smiles when you smile 😊","The one who sends good morning texts ☀️"],c:1},
-{h:"💕 MCQ for my favorite human 💕",q:"Our love is…",o:["Passionate and comforting 🤍","Fun and chaotic 😜","Growing stronger every day 🌱","All of this together ❤️"],c:3},
-{h:"😘 Quick quiz, babe 😘",q:"My favorite place?",o:["Somewhere calm 🌊","Food places 🍕","Wherever you are 💑","Anywhere with Wi-Fi 📶"],c:2},
-{h:"💘 Valentine MCQ 💘",q:"Who owns my heart?",o:["Understands me 🧠❤️","You 😍","Makes me laugh 😂","Feels like home 🏡"],c:1},
-{h:"🫶 Pop quiz time 🫶",q:"What makes me smile instantly?",o:["Random memes 😄","Good news 📰✨","Your presence 🥰","You, without even trying 💞"],c:3},
-{h:"💕 Valentine MCQ 💕",q:"When I imagine my future, I see…",o:["Peace 🌸","Growth 🌈","Forever ♾️","Us 💍"],c:3},
-{h:"😘 Love quiz 😘",q:"The safest place in the world is…",o:["Home 🏠","Understanding 🤍","Next to you 🫶","Silence 🌌"],c:2},
-{h:"💘 Romantic pop quiz 💘",q:"Who makes my heart feel at home?",o:["Listener 👂","Stayer 🫂","Chooser 🌹","You 😌"],c:3},
-{h:"💝 MCQ but make it love 💝",q:"My favorite ‘I love you’ is…",o:["Care 🍽️","Memory 🧠💕","Silence 🤫❤️","All of it 💘"],c:3},
-{h:"💞 Valentine test 💞",q:"What do I want more than anything?",o:["Peace 🧘","Time ⏳","Future 🌟","Lifetime with you 💍"],c:3},
-{h:"❤️ Heart quiz ❤️",q:"Who makes ordinary days magical?",o:["Surprises 🎁","Talks 💬","You ✨","Love 💖"],c:2},
-{h:"💕 Romantic MCQ 💕",q:"My forever Valentine is…",o:["Knows flaws 😌","Stays 🤍","Destiny 🌙","You ♾️"],c:3},
-{h:"💍 One last thing… 💍",q:"Will you be my Valentine, Sony Maa?",o:["I already am 💕","Of course 😍","Always 😘","No 🙈"],c:0,special:true}
-];
-
-const funny=[
-"😂 Nope!","🙈 Try again!","😜 Almost!","💭 Think like my Valentine!",
-"😅 Cute guess","🤭 Not this one","💘 Try again","😏 You know it","🙃 Nope","🥰 Almost"
-];
-
+let popupLock=false;
 let index=0;
+
+const quiz = [
+  {h:"💝 Valentine Pop Quiz 💝",q:"Who loves you the most?",o:["The one who misses you silently 🌙","The one who built this quiz just for you 💻💘","The one who smiles when you smile 😊","The one who sends good morning texts ☀️"],c:1},
+  {h:"💕 MCQ for my favorite human 💕",q:"Our love is…",o:["Passionate and comforting 🤍","Fun and chaotic 😜","Growing stronger every day 🌱","All of this together ❤️"],c:3},
+  {h:"😘 Quick quiz, babe 😘",q:"My favorite place?",o:["Somewhere calm 🌊","Food places 🍕","Wherever you are 💑","Anywhere with Wi-Fi 📶"],c:2},
+  {h:"💘 Valentine MCQ 💘",q:"Who owns my heart?",o:["Understands me 🧠❤️","You 😍","Makes me laugh 😂","Feels like home 🏡"],c:1},
+  {h:"🫶 Pop quiz time 🫶",q:"What makes me smile instantly?",o:["Random memes 😄","Good news 📰✨","Your presence 🥰","You, without even trying 💞"],c:3},
+  {h:"💕 Valentine MCQ 💕",q:"When I imagine my future, I see…",o:["Peace 🌸","Growth 🌈","Forever ♾️","Us 💍"],c:3},
+  {h:"😘 Love quiz 😘",q:"The safest place in the world is…",o:["Home 🏠","Understanding 🤍","Next to you 🫶","Silence 🌌"],c:2},
+  {h:"💘 Romantic pop quiz 💘",q:"Who makes my heart feel at home?",o:["Listener 👂","Stayer 🫂","Chooser 🌹","You 😌"],c:3},
+  {h:"💝 MCQ but make it love 💝",q:"My favorite ‘I love you’ is…",o:["Care 🍽️","Memory 🧠💕","Silence 🤫❤️","All of it 💘"],c:3},
+  {h:"💞 Valentine test 💞",q:"What do I want more than anything?",o:["Peace 🧘","Time ⏳","Future 🌟","Lifetime with you 💍"],c:3},
+  {h:"❤️ Heart quiz ❤️",q:"Who makes ordinary days magical?",o:["Surprises 🎁","Talks 💬","You ✨","Love 💖"],c:2},
+  {h:"💕 Romantic MCQ 💕",q:"My forever Valentine is…",o:["Knows flaws 😌","Stays 🤍","Destiny 🌙","You ♾️"],c:3},
+  {h:"💍 One last thing… 💍",q:"Will you be my Valentine, Sony Maa?",o:["I already am 💕","Of course 😍","Always 😘","No 🙈"],c:0,special:true}
+];
+
+
+const funny=["😂 Nope!","🙈 Try again!","😜 Almost!","🤭 Not this one","💘 Think again"];
+
+function showPopup(content){
+  popupBox.innerHTML=content;
+  popup.classList.add("show");
+}
+
+function hidePopup(delay){
+  setTimeout(()=>popup.classList.remove("show"),delay);
+}
 
 function startQuiz(){
   song1.play();
-  startScreen.style.display="none";
-  quizScreen.style.display="block";
+  document.getElementById("startScreen").style.display="none";
+  document.getElementById("quizScreen").style.display="block";
   loadQ();
 }
 
 function loadQ(){
-  heading.innerText=quiz[index].h;
-  question.innerText=quiz[index].q;
-  options.innerHTML="";
+  popupLock=false;
+  document.getElementById("heading").innerText=quiz[index].h;
+  document.getElementById("question").innerText=quiz[index].q;
+  const opt=document.getElementById("options");
+  opt.innerHTML="";
   quiz[index].o.forEach((t,i)=>{
     const d=document.createElement("div");
     d.className="option";
     d.innerText=t;
     d.onclick=()=>answer(i);
-    options.appendChild(d);
+    opt.appendChild(d);
   });
 }
 
 function answer(i){
+  if(popupLock) return;
+  popupLock=true;
 
   if(quiz[index].special && i===3){
-    showPopup("❌ Invalid option.<br>System override: You are already my Valentine 😌💖");
+    showPopup("❌ Invalid option<br>You’re already my Valentine 😌💖");
     hidePopup(1200);
+    setTimeout(()=>popupLock=false,1200);
     return;
   }
 
-  if(i === quiz[index].c){
+  if(i===quiz[index].c){
     showPopup('<div class="sky-heart">🩵</div>');
-    hidePopup(600);
-
+    hidePopup(500);
     setTimeout(()=>{
       index++;
-      index < quiz.length ? loadQ() : finish();
-    }, 600);
-
-  } else {
+      popupLock=false;
+      index<quiz.length?loadQ():finish();
+    },500);
+  }else{
     showPopup(funny[Math.random()*funny.length|0]);
-    hidePopup(800);
+    hidePopup(700);
+    setTimeout(()=>popupLock=false,700);
   }
 }
 
-
-
 function finish(){
-  card.innerHTML=`
+  document.getElementById("card").innerHTML=`
   <div style="text-align:center;font-size:20px;font-weight:600">
-    Goodness Cuteeee
+    Goodness Cuteeee 🩵
   </div>
   <p style="margin-top:18px;font-size:16px;line-height:1.7">
     You officially know me better than I know myself 🥹<br><br>
@@ -346,30 +284,13 @@ function finish(){
 
 function typeText(text,id){
   const el=document.getElementById(id);
-  el.classList.add("cursor");
   let i=0;
   const t=setInterval(()=>{
     el.textContent+=text[i++];
-    if(i===text.length){
-      clearInterval(t);
-      el.classList.remove("cursor");
-    }
+    if(i===text.length) clearInterval(t);
   },120);
 }
 </script>
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
