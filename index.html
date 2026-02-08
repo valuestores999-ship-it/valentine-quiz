@@ -220,15 +220,23 @@ const card=document.getElementById("card");
 let index=0;
 
 function startQuiz(){
-  trackIndex=0;
-  audio.src=tracks[0];
-  audio.currentTime=0;
-  audio.play();
+  // 🔓 MOBILE AUDIO UNLOCK (CRITICAL)
+  audio.muted = true;
+  audio.src = tracks[0];
+  audio.play().then(() => {
+    audio.pause();
+    audio.currentTime = 0;
+    audio.muted = false;
+
+    // ▶️ REAL PLAY (NOW MOBILE ALLOWS IT)
+    audio.play();
+  }).catch(()=>{});
 
   startScreen.style.display="none";
   quizScreen.style.display="block";
   loadQ();
 }
+
 
 function loadQ(){
   heading.innerText=quiz[index].h;
@@ -296,3 +304,4 @@ function typeText(text,id){
 
 </body>
 </html>
+
