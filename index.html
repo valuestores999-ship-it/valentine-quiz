@@ -151,13 +151,14 @@ body{
 <body>
 
 <!-- 🎶 MUSIC -->
-<audio id="song1" preload="auto">
+<audio id="song1" preload="auto" playsinline>
   <source src="Hayyoda_x_Remo_BGM_TAMIL_Jenushan_Anirudh_256kbps.mp3" type="audio/mpeg">
 </audio>
 
-<audio id="song2" preload="auto">
+<audio id="song2" preload="auto" playsinline>
   <source src="Oorum_Blood_Unplugged_Dude_Pradeep_Ranganathan_Mamitha_Baiju_Sai_Abhyankkar_Keerthiswaran_256kbps.mp3" type="audio/mpeg">
 </audio>
+
 
 <div class="hearts">
   <span style="left:10%;animation-duration:18s">🩵</span>
@@ -239,12 +240,18 @@ const funny=[
 let index=0;
 
 function startQuiz(){
-  song1.currentTime=0;
-  song1.play();
-  startScreen.style.display="none";
-  quizScreen.style.display="block";
-  loadQ();
+  song1.currentTime = 0;
+
+  song1.play().then(() => {
+    // Audio successfully started (mobile-safe)
+    startScreen.style.display = "none";
+    quizScreen.style.display = "block";
+    loadQ();
+  }).catch(err => {
+    alert("Please tap again to enable sound 🎶");
+  });
 }
+
 
 function loadQ(){
   heading.innerText=quiz[index].h;
@@ -312,3 +319,4 @@ function typeText(text,id){
 
 </body>
 </html>
+
