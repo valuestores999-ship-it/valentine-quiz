@@ -5,7 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Valentine Quiz 💘</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
 
 <style>
 @font-face{
@@ -33,8 +34,8 @@ body{
 .hearts span{
   position:fixed;
   bottom:-40px;
-  font-size:30px;
-  opacity:.55;
+  font-size:32px;
+  opacity:.6;
   animation:floatUp linear infinite;
 }
 @keyframes floatUp{
@@ -58,14 +59,26 @@ body{
 }
 
 /* Start screen */
-.start-title{text-align:center;font-size:18px;font-weight:600;}
+.start-title{
+  text-align:center;
+  font-size:18px;
+  font-weight:600;
+}
+
 .start-name{
   text-align:center;
-  font-size:34px;
-  font-family:'Rockybilly',cursive;
+  font-family:'Great Vibes',cursive;
+  font-size:38px;
   margin:12px 0 8px;
 }
-.start-caption{text-align:center;font-size:16px;line-height:1.6;margin-bottom:28px;}
+
+.start-caption{
+  text-align:center;
+  font-size:16px;
+  line-height:1.6;
+  margin-bottom:28px;
+}
+
 .start-btn{
   background:#6b6cff;
   color:#fff;
@@ -79,6 +92,7 @@ body{
 /* Quiz */
 .heading{text-align:center;font-weight:600;margin-bottom:14px;}
 .question{text-align:center;font-size:18px;margin-bottom:20px;}
+
 .option{
   border:2px solid #d8dcff;
   padding:14px;
@@ -89,6 +103,7 @@ body{
   opacity:0;
   animation:optionIn .6s forwards;
 }
+
 .option:nth-child(1){animation-delay:.1s}
 .option:nth-child(2){animation-delay:.2s}
 .option:nth-child(3){animation-delay:.3s}
@@ -99,7 +114,7 @@ body{
   to{opacity:1;transform:translateY(0);}
 }
 
-/* FIX: disable hover on mobile */
+/* Disable hover on mobile */
 @media (hover: hover) and (pointer: fine){
   .option:hover{
     background:#6b6cff;
@@ -107,6 +122,7 @@ body{
     border-color:#6b6cff;
   }
 }
+
 .option:active{
   background:#6b6cff;
   color:#fff;
@@ -123,6 +139,7 @@ body{
   justify-content:center;
   align-items:center;
 }
+
 .popup-box{
   background:#fff;
   padding:36px;
@@ -131,6 +148,7 @@ body{
   text-align:center;
   animation:pop .4s ease;
 }
+
 @keyframes pop{
   0%{transform:scale(0);}
   70%{transform:scale(1.25);}
@@ -138,7 +156,11 @@ body{
 }
 
 /* Correct heart */
-.sky-heart{font-size:72px;animation:heartUp 1s ease;}
+.sky-heart{
+  font-size:72px;
+  animation:heartUp 1s ease;
+}
+
 @keyframes heartUp{
   0%{transform:scale(.3);opacity:0;}
   50%{transform:scale(1.3);opacity:1;}
@@ -148,18 +170,22 @@ body{
 /* Signature */
 .signature{
   font-family:'Rockybilly',cursive;
-  font-size:28px;
+  font-size:20px;
   text-align:center;
 }
-.cursor{border-right:2px solid #333;padding-right:4px;}
+
+.cursor{
+  border-right:2px solid #333;
+  padding-right:4px;
+}
 </style>
 </head>
 
 <body>
 
-<!-- MUSIC -->
-<audio id="song1" preload="metadata"></audio>
-<audio id="song2" preload="auto"></audio>
+<!-- AUDIO -->
+<audio id="song1" preload="auto" src="Hayyoda_x_Remo_BGM_TAMIL_Jenushan_Anirudh_256kbps.webm"></audio>
+<audio id="song2" preload="auto" src="Oorum_Blood_Unplugged_Dude_Pradeep_Ranganathan_Mamitha_Baiju_Sai_Abhyankkar_Keerthiswaran_256kbps.webm"></audio>
 
 <div class="hearts">
   <span style="left:10%;animation-duration:18s">🩵</span>
@@ -193,7 +219,6 @@ body{
 </div>
 
 <script>
-// DOM
 const startScreen=document.getElementById("startScreen");
 const quizScreen=document.getElementById("quizScreen");
 const heading=document.getElementById("heading");
@@ -205,30 +230,40 @@ const card=document.getElementById("card");
 const song1=document.getElementById("song1");
 const song2=document.getElementById("song2");
 
-// AUDIO FIX
-song1.src="Hayyoda_x_Remo_BGM_TAMIL_Jenushan_Anirudh_128KBPS.mp4";
-song2.src="Oorum_Blood_Unplugged_Dude_Pradeep_Ranganathan_Mamitha_Baiju_Sai_Abhyankkar_Keerthiswaran_256kbps.webm";
 song1.volume=0.5;
 song2.volume=0.5;
 
-// Force correct duration handling
-song1.addEventListener("timeupdate",()=>{
-  if(song1.currentTime>=63){
-    song1.pause();
-    song1.currentTime=0;
-    song2.play();
-  }
+// Play song 2 immediately after song 1 ends
+song1.addEventListener("ended",()=>{
+  song2.currentTime=0;
+  song2.play();
 });
 
 const quiz=[
- {h:"💝 Valentine Pop Quiz 💝",q:"Who loves you the most?",o:["The one who misses you 🌙","The one who built this quiz 💻💘","The one who smiles 😊","The one who texts ☀️"],c:1},
- {h:"💕 MCQ for my favorite human 💕",q:"Our love is…",o:["Soft 🤍","Chaotic 😜","Growing 🌱","Everything ❤️"],c:3},
+ {h:"💝 Valentine Pop Quiz 💝",q:"Who loves you the most?",o:["Someone 🌙","The one who built this quiz 💻💘","Someone 😊","Someone ☀️"],c:1},
+ {h:"💕 MCQ for my favorite human 💕",q:"Our love is…",o:["Passion 🤍","Chaotic 😜","Growing 🌱","Everything ❤️"],c:3},
+ {h:"😘 Quick quiz, babe 😘",q:"My favorite place?",o:["Beach 🌊","Food place 🍕","With you 💑","Wi-Fi 📶"],c:2},
+ {h:"💘 Valentine MCQ 💘",q:"Who owns my heart?",o:["Someone 🧠","You 😍","Someone 😂","Someone 🏡"],c:1},
+ {h:"🫶 Pop quiz time 🫶",q:"What makes me smile instantly?",o:["Memes 😄","Good news ✨","Your presence 🥰","You 💞"],c:3},
+ {h:"💕 Valentine MCQ 💕",q:"When I imagine my future, I see…",o:["Peace 🌸","Growth 🌈","Forever ♾️","Us 💍"],c:3},
+ {h:"😘 Love quiz 😘",q:"The safest place in the world is…",o:["Home 🏠","Silence 🌌","Next to you 🫶","Anywhere 🤍"],c:2},
+ {h:"💘 Romantic pop quiz 💘",q:"Who makes my heart feel at home?",o:["Listener 👂","Stayer 🫂","Chooser 🌹","You 😌"],c:3},
+ {h:"💝 MCQ but make it love 💝",q:"My favorite ‘I love you’ is…",o:["Care 🍽️","Memory 🧠","Silence 🤫","All 💘"],c:3},
+ {h:"💞 Valentine test 💞",q:"What do I want more than anything?",o:["Peace 🧘","Time ⏳","Future 🌟","Lifetime with you 💍"],c:3},
+ {h:"❤️ Heart quiz ❤️",q:"Who makes ordinary days magical?",o:["Surprises 🎁","Talks 💬","You ✨","Love 💖"],c:2},
+ {h:"💕 Romantic MCQ 💕",q:"My forever Valentine is…",o:["Knows flaws 😌","Stays 🤍","Destiny 🌙","You ♾️"],c:3},
  {h:"💍 One last thing… 💍",q:"Will you be my Valentine, Sony Maa?",o:["I already am 💕","Of course 😍","Always 😘","No 🙈"],c:0,special:true}
+];
+
+const funny=[
+"😂 Nope!","🙈 Try again!","😜 Almost!","💭 Think like my Valentine!",
+"😅 Cute guess","🤭 Not this one","💘 Try again","😏 You know it"
 ];
 
 let index=0;
 
 function startQuiz(){
+  song1.currentTime=0;
   song1.play();
   startScreen.style.display="none";
   quizScreen.style.display="block";
@@ -250,11 +285,13 @@ function loadQ(){
 
 function answer(i){
   popup.style.display="flex";
+
   if(quiz[index].special && i===3){
-    popupBox.innerText="❌ Invalid.\nSystem says: You’re already my Valentine 😌💖";
+    popupBox.innerText="❌ Invalid.\nSystem override: You are already my Valentine 😌💖";
     setTimeout(()=>popup.style.display="none",1200);
     return;
   }
+
   if(i===quiz[index].c){
     popupBox.innerHTML='<div class="sky-heart">🩵</div>';
     setTimeout(()=>{
@@ -263,7 +300,7 @@ function answer(i){
       index<quiz.length?loadQ():finish();
     },900);
   }else{
-    popupBox.innerText="😏 You know the answer";
+    popupBox.innerText=funny[Math.random()*funny.length|0];
     setTimeout(()=>popup.style.display="none",800);
   }
 }
@@ -299,3 +336,4 @@ function typeText(text,id){
 
 </body>
 </html>
+
