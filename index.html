@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Valentine Quiz 💘</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
@@ -33,15 +33,13 @@ body{
 .hearts span{
   position:fixed;
   bottom:-40px;
-  font-size:30px;
+  font-size:28px;
   opacity:.6;
   animation:floatUp linear infinite;
 }
 @keyframes floatUp{
   to{transform:translateY(-120vh);}
 }
-
-audio{display:none;}
 
 .card{
   width:94%;
@@ -78,18 +76,15 @@ audio{display:none;}
   cursor:pointer;
 }
 
-/* prevent mobile auto-hover */
-@media (hover:hover) and (pointer:fine){
+@media (hover:hover){
   .option:hover{
     background:#6b6cff;
     color:#fff;
-    border-color:#6b6cff;
   }
 }
 .option:active{
   background:#6b6cff;
   color:#fff;
-  border-color:#6b6cff;
 }
 
 /* popup */
@@ -109,7 +104,7 @@ audio{display:none;}
   text-align:center;
 }
 
-/* final signature */
+/* signature */
 .signature{
   font-family:'Rockybilly',cursive;
   font-size:26px;
@@ -120,7 +115,8 @@ audio{display:none;}
 
 <body>
 
-<audio id="player" playsinline></audio>
+<!-- SINGLE AUDIO PLAYER -->
+<audio id="audio" playsinline preload="auto"></audio>
 
 <div class="hearts">
   <span style="left:10%;animation-duration:18s">🩵</span>
@@ -132,18 +128,15 @@ audio{display:none;}
 
 <div class="card" id="card">
 
-<!-- START -->
 <div id="startScreen">
   <div class="start-title">⚠️ Valentine-level cuteness ahead 💋</div>
   <div class="start-name">SONY MAA 🩵</div>
   <div class="start-caption">
-    A tiny quiz made with a lot of love 💕<br>
-    Ready?
+    A tiny quiz made with a lot of love 💕<br>Ready?
   </div>
   <div class="start-btn" onclick="startQuiz()">Begin 💌</div>
 </div>
 
-<!-- QUIZ -->
 <div id="quizScreen" style="display:none;">
   <div class="heading" id="heading"></div>
   <div class="question" id="question"></div>
@@ -157,91 +150,83 @@ audio{display:none;}
 </div>
 
 <script>
-/* AUDIO */
-const player = document.getElementById("player");
+const audio = document.getElementById("audio");
 const tracks = ["song1.mp3","song2.mp3"];
-let trackIndex = 0;
+let track = 0;
 
-player.volume = 0.7;
-player.addEventListener("ended",()=>{
-  trackIndex++;
-  if(trackIndex < tracks.length){
-    player.src = tracks[trackIndex];
-    player.play();
+audio.volume = 0.7;
+
+audio.addEventListener("ended",()=>{
+  track++;
+  if(track < tracks.length){
+    audio.src = tracks[track];
+    audio.currentTime = 0;
+    audio.play();
   }
 });
 
-/* DOM */
-const startScreen=document.getElementById("startScreen");
-const quizScreen=document.getElementById("quizScreen");
-const heading=document.getElementById("heading");
-const question=document.getElementById("question");
-const options=document.getElementById("options");
-const popup=document.getElementById("popup");
-const popupBox=document.getElementById("popupBox");
-const card=document.getElementById("card");
+const startScreen = document.getElementById("startScreen");
+const quizScreen = document.getElementById("quizScreen");
+const heading = document.getElementById("heading");
+const question = document.getElementById("question");
+const options = document.getElementById("options");
+const popup = document.getElementById("popup");
+const popupBox = document.getElementById("popupBox");
+const card = document.getElementById("card");
 
-/* QUESTIONS – ALL 13 */
 const quiz=[
- {h:"💝 Valentine Pop Quiz 💝",q:"Who loves you the most?",o:["Someone 🌙","The one who built this quiz 💻💘","Someone 😊","Someone ☀️"],c:1},
- {h:"💕 MCQ for my favorite human 💕",q:"Our love is…",o:["Soft 🤍","Chaotic 😜","Growing 🌱","Everything ❤️"],c:3},
- {h:"😘 Quick quiz, babe 😘",q:"My favorite place?",o:["Beach 🌊","Food 🍕","With you 💑","Wi-Fi 📶"],c:2},
- {h:"💘 Valentine MCQ 💘",q:"Who owns my heart?",o:["Someone 🧠","You 😍","Someone 😂","Someone 🏡"],c:1},
- {h:"🫶 Pop quiz time 🫶",q:"What makes me smile instantly?",o:["Memes 😄","Good news ✨","Your presence 🥰","You 💞"],c:3},
- {h:"💕 Valentine MCQ 💕",q:"When I imagine my future, I see…",o:["Peace 🌸","Growth 🌈","Forever ♾️","Us 💍"],c:3},
- {h:"😘 Love quiz 😘",q:"The safest place in the world is…",o:["Home 🏠","Silence 🌌","Next to you 🫶","Anywhere 🤍"],c:2},
- {h:"💘 Romantic pop quiz 💘",q:"Who makes my heart feel at home?",o:["Listener 👂","Stayer 🫂","Chooser 🌹","You 😌"],c:3},
- {h:"💝 MCQ but make it love 💝",q:"My favorite ‘I love you’ is…",o:["Care 🍽️","Memory 🧠","Silence 🤫","All 💘"],c:3},
- {h:"💞 Valentine test 💞",q:"What do I want more than anything?",o:["Peace 🧘","Time ⏳","Future 🌟","Lifetime with you 💍"],c:3},
- {h:"❤️ Heart quiz ❤️",q:"Who makes ordinary days magical?",o:["Surprises 🎁","Talks 💬","You ✨","Love 💖"],c:2},
- {h:"💕 Romantic MCQ 💕",q:"My forever Valentine is…",o:["Knows flaws 😌","Stays 🤍","Destiny 🌙","You ♾️"],c:3},
- {h:"💍 One last thing… 💍",q:"Will you be my Valentine, Sony Maa?",o:["I already am 💕","Of course 😍","Always 😘","No 🙈"],c:0,special:true}
+ {h:"💝 Valentine Pop Quiz 💝",q:"Who loves you the most?",o:["Someone 🌙","Me 💻💘","Someone 😊","Someone ☀️"],c:1},
+ {h:"💕 MCQ 💕",q:"Our love is…",o:["Soft 🤍","Chaotic 😜","Growing 🌱","Everything ❤️"],c:3},
+ {h:"😘 Quick quiz 😘",q:"My favorite place?",o:["Beach 🌊","Food 🍕","With you 💑","Wi-Fi 📶"],c:2},
+ {h:"💘 Valentine MCQ 💘",q:"Who owns my heart?",o:["Someone","You 😍","Someone","Someone"],c:1},
+ {h:"🫶 Pop quiz 🫶",q:"What makes me smile instantly?",o:["Memes 😄","News ✨","Presence 🥰","You 💞"],c:3},
+ {h:"💍 Final 💍",q:"Will you be my Valentine, Sony Maa?",o:["I already am 💕","Of course 😍","Always 😘","No 🙈"],c:0,special:true}
 ];
 
-const funny=[
-"😂 Nope!","🙈 Try again!","😜 Almost!","💭 Think like my Valentine!",
-"😅 Cute guess","🤭 Not this one","💘 Try again","😏 You know it"
-];
+const funny=["😂 Nope!","🙈 Try again!","😜 Almost!","💘 You know this"];
 
-let index=0;
+let i=0;
 
 function startQuiz(){
-  trackIndex=0;
-  player.src = tracks[0];
-  player.play();   // USER GESTURE → AUDIO UNLOCKED
+  // AUDIO UNLOCK — THIS IS THE KEY
+  track = 0;
+  audio.src = tracks[0];
+  audio.currentTime = 0;
+  audio.play();
+
   startScreen.style.display="none";
   quizScreen.style.display="block";
   loadQ();
 }
 
 function loadQ(){
-  heading.innerText=quiz[index].h;
-  question.innerText=quiz[index].q;
+  heading.innerText=quiz[i].h;
+  question.innerText=quiz[i].q;
   options.innerHTML="";
-  quiz[index].o.forEach((t,i)=>{
+  quiz[i].o.forEach((t,n)=>{
     const d=document.createElement("div");
     d.className="option";
     d.innerText=t;
-    d.onclick=()=>answer(i);
+    d.onclick=()=>answer(n);
     options.appendChild(d);
   });
 }
 
-function answer(i){
+function answer(n){
   popup.style.display="flex";
 
-  if(quiz[index].special && i===3){
-    popupBox.innerText="System override 😌 You are already my Valentine 💖";
+  if(quiz[i].special && n===3){
+    popupBox.innerText="Invalid ❌ You’re already my Valentine 😌💖";
     setTimeout(()=>popup.style.display="none",1200);
     return;
   }
 
-  if(i===quiz[index].c){
+  if(n===quiz[i].c){
     popupBox.innerText="🩵";
     setTimeout(()=>{
       popup.style.display="none";
-      index++;
-      index<quiz.length?loadQ():finish();
+      i++;
+      i<quiz.length?loadQ():finish();
     },800);
   }else{
     popupBox.innerText=funny[Math.random()*funny.length|0];
