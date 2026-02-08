@@ -131,7 +131,7 @@ body{
 /* Signature */
 .signature{
   font-family:'Rockybilly',cursive;
-  font-size:16px;
+  font-size:18px;
   text-align:center;
 }
 .cursor{border-right:2px solid #333;padding-right:4px;}
@@ -267,9 +267,9 @@ function answer(i){
   popupLock=true;
 
   if(quiz[index].special && i===3){
-    showPopup("❌ Invalid option<br>You’re already my Valentine 😌💖");
-    hidePopup(1200);
-    setTimeout(()=>popupLock=false,1200);
+    showPopup("❌ System already detected<br>You’re already my Valentine 😌💖");
+    hidePopup(1500);
+    setTimeout(()=>popupLock=false,1500);
     return;
   }
 
@@ -285,8 +285,8 @@ function answer(i){
   showPopup(funny[Math.random()*funny.length|0]);
 
   // 😂 Funny comments stay longer
-  hidePopup(1200);
-  setTimeout(()=>popupLock=false,1200);
+  hidePopup(1600);
+  setTimeout(()=>popupLock=false,1600);
 }
 
 }
@@ -302,7 +302,7 @@ function finish(){
     Unlimited hugs 🫂, lifetime teasing 😜,<br>
     and being stuck with me forever ♾️💍<br><br>
      But most importantly…<br>
-  <b>I love you Sony Maa</b> 🩵🩵💕<br><br>
+  <b>I love you Sony Maa</b> 🩵🩵<br><br>
 
   So here’s my little proposal wrapped in a quiz:<br>
   Will you be my Valentine — not just today,<br>
