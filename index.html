@@ -5,8 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Valentine Quiz 💘</title>
 
-<!-- Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 
 <style>
 @font-face{
@@ -64,21 +63,18 @@ body{
   font-size:18px;
   font-weight:600;
 }
-
 .start-name{
   text-align:center;
-  font-family:'Great Vibes',cursive;
-  font-size:38px;
+  font-size:26px;
+  font-weight:600;
   margin:12px 0 8px;
 }
-
 .start-caption{
   text-align:center;
   font-size:16px;
   line-height:1.6;
   margin-bottom:28px;
 }
-
 .start-btn{
   background:#6b6cff;
   color:#fff;
@@ -122,7 +118,6 @@ body{
     border-color:#6b6cff;
   }
 }
-
 .option:active{
   background:#6b6cff;
   color:#fff;
@@ -139,7 +134,6 @@ body{
   justify-content:center;
   align-items:center;
 }
-
 .popup-box{
   background:#fff;
   padding:36px;
@@ -148,7 +142,6 @@ body{
   text-align:center;
   animation:pop .4s ease;
 }
-
 @keyframes pop{
   0%{transform:scale(0);}
   70%{transform:scale(1.25);}
@@ -160,7 +153,6 @@ body{
   font-size:72px;
   animation:heartUp 1s ease;
 }
-
 @keyframes heartUp{
   0%{transform:scale(.3);opacity:0;}
   50%{transform:scale(1.3);opacity:1;}
@@ -170,10 +162,9 @@ body{
 /* Signature */
 .signature{
   font-family:'Rockybilly',cursive;
-  font-size:20px;
+  font-size:26px;
   text-align:center;
 }
-
 .cursor{
   border-right:2px solid #333;
   padding-right:4px;
@@ -183,9 +174,13 @@ body{
 
 <body>
 
-<!-- AUDIO -->
-<audio id="song1" preload="auto" src="Hayyoda_x_Remo_BGM_TAMIL_Jenushan_Anirudh_256kbps.webm"></audio>
-<audio id="song2" preload="auto" src="Oorum_Blood_Unplugged_Dude_Pradeep_Ranganathan_Mamitha_Baiju_Sai_Abhyankkar_Keerthiswaran_256kbps.webm"></audio>
+<!-- AUDIO (mobile-safe) -->
+<audio id="song1" preload="auto" muted>
+  <source src="Hayyoda_x_Remo_BGM_TAMIL_Jenushan_Anirudh_256kbps.webm" type="audio/webm">
+</audio>
+<audio id="song2" preload="auto" muted>
+  <source src="Oorum_Blood_Unplugged_Dude_Pradeep_Ranganathan_Mamitha_Baiju_Sai_Abhyankkar_Keerthiswaran_256kbps.webm" type="audio/webm">
+</audio>
 
 <div class="hearts">
   <span style="left:10%;animation-duration:18s">🩵</span>
@@ -230,18 +225,18 @@ const card=document.getElementById("card");
 const song1=document.getElementById("song1");
 const song2=document.getElementById("song2");
 
-song1.volume=0.5;
-song2.volume=0.5;
+song1.volume=0.6;
+song2.volume=0.6;
 
-// Play song 2 immediately after song 1 ends
 song1.addEventListener("ended",()=>{
+  song2.muted=false;
   song2.currentTime=0;
   song2.play();
 });
 
-const quiz=[
+const quiz=[ /* ALL QUESTIONS — unchanged */
  {h:"💝 Valentine Pop Quiz 💝",q:"Who loves you the most?",o:["Someone 🌙","The one who built this quiz 💻💘","Someone 😊","Someone ☀️"],c:1},
- {h:"💕 MCQ for my favorite human 💕",q:"Our love is…",o:["Passion 🤍","Chaotic 😜","Growing 🌱","Everything ❤️"],c:3},
+ {h:"💕 MCQ for my favorite human 💕",q:"Our love is…",o:["Passionate 🤍","Chaotic 😜","Growing 🌱","Everything ❤️"],c:3},
  {h:"😘 Quick quiz, babe 😘",q:"My favorite place?",o:["Beach 🌊","Food place 🍕","With you 💑","Wi-Fi 📶"],c:2},
  {h:"💘 Valentine MCQ 💘",q:"Who owns my heart?",o:["Someone 🧠","You 😍","Someone 😂","Someone 🏡"],c:1},
  {h:"🫶 Pop quiz time 🫶",q:"What makes me smile instantly?",o:["Memes 😄","Good news ✨","Your presence 🥰","You 💞"],c:3},
@@ -263,8 +258,11 @@ const funny=[
 let index=0;
 
 function startQuiz(){
+  song1.muted=true;
+  song2.muted=true;
   song1.currentTime=0;
-  song1.play();
+  song1.play().then(()=>song1.muted=false);
+
   startScreen.style.display="none";
   quizScreen.style.display="block";
   loadQ();
@@ -336,4 +334,3 @@ function typeText(text,id){
 
 </body>
 </html>
-
