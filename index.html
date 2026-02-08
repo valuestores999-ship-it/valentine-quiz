@@ -198,7 +198,7 @@ const quiz = [
   {h:"🫶 Pop quiz time 🫶",q:"What makes me smile instantly?",o:["Random memes 😄","Good news 📰✨","Your presence 🥰","You, without even trying 💞"],c:3},
   {h:"💕 Valentine MCQ 💕",q:"When I imagine my future, I see…",o:["Peace 🌸","Growth 🌈","Forever ♾️","Us 💍"],c:3},
   {h:"😘 Love quiz 😘",q:"The safest place in the world is…",o:["Home 🏠","Understanding 🤍","Next to you 🫶","In a moment that feels like forever ✨"],c:2},
-  {h:"💘 Romantic pop quiz 💘",q:"Who makes my heart feel at home?",o:["Listener 👂","Stayer 🫂","Chooser 🌹","You 😌"],c:3},
+  {h:"💘 Romantic pop quiz 💘",q:"Who makes my heart feel at home?",o:["Listener 👂","Stayer 🫂","Chooser 🌹","You 💞"],c:3},
   {h:"💝 MCQ but make it love 💝",q:"My favorite ‘I love you’ is…",o:["The way you look at me softly 👀🤍","The way you say my name 🥹","The silence where love is understood 🌸","All of it 💘"],c:3},
   {h:"💞 Valentine test 💞",q:"What do I want more than anything?",o:["Peace 🧘","Time ⏳","Future 🌟","Lifetime with you 💍"],c:3},
   {h:"❤️ Heart quiz ❤️",q:"Who makes ordinary days magical?",o:["Surprises 🎁","Talks 💬","You ✨","Love 💖"],c:2},
@@ -281,11 +281,14 @@ function answer(i){
       popupLock=false;
       index<quiz.length?loadQ():finish();
     },500);
-  }else{
-    showPopup(funny[Math.random()*funny.length|0]);
-    hidePopup(700);
-    setTimeout(()=>popupLock=false,700);
-  }
+ }else{
+  showPopup(funny[Math.random()*funny.length|0]);
+
+  // 😂 Funny comments stay longer
+  hidePopup(1200);
+  setTimeout(()=>popupLock=false,1200);
+}
+
 }
 
 function finish(){
@@ -299,7 +302,7 @@ function finish(){
     Unlimited hugs 🫂, lifetime teasing 😜,<br>
     and being stuck with me forever ♾️💍<br><br>
      But most importantly…<br>
-  <b>I love you Sony Maa🩵🩵.</b> 💕<br><br>
+  <b>I love you Sony Maa</b> 🩵🩵💕<br><br>
 
   So here’s my little proposal wrapped in a quiz:<br>
   Will you be my Valentine — not just today,<br>
@@ -323,6 +326,7 @@ function typeText(text,id){
 
 </body>
 </html>
+
 
 
 
