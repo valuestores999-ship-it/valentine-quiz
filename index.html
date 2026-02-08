@@ -119,52 +119,45 @@ body{
   justify-content:center;
   align-items:center;
   z-index:999;
-  animation:fadeBg .25s ease;
+
+  opacity:0;
+  transition:opacity 0.25s ease;
 }
 
-/* Popup box – CENTER ONLY */
+/* Popup visible */
+.popup.show{
+  display:flex;
+  opacity:1;
+}
+
+/* Popup box */
 .popup-box{
   background:#fff;
   padding:36px;
   border-radius:26px;
   font-size:22px;
   text-align:center;
-}
 
-
-  /* important */
   transform:scale(0.85);
   opacity:0;
-  animation:popupIn .35s ease forwards;
+  transition:
+    transform 0.35s cubic-bezier(.22,.61,.36,1),
+    opacity 0.25s ease;
 }
 
-/* Overlay fade */
-@keyframes fadeBg{
-  from{opacity:0;}
-  to{opacity:1;}
+/* Popup box visible */
+.popup.show .popup-box{
+  transform:scale(1);
+  opacity:1;
 }
 
-/* Center pop (NO SIDE MOVEMENT) */
-@keyframes popupIn{
-  0%{
-    transform:scale(0.85);
-    opacity:0;
-  }
-  100%{
-    transform:scale(1);
-    opacity:1;
-  }
-}
 
 /* Heart animation (unchanged, but smoother) */
 .sky-heart{
   font-size:72px;
-  animation:heartPulse 0.6s ease;
+  animation:heartPulse 0.4s ease;
 }
-/* Popup animation – mobile-safe (replays every tap) */
-.popup-anim{
-  animation:popupAnim 0.35s ease;
-}
+
 
 @keyframes popupAnim{
   0%{
@@ -240,15 +233,25 @@ const card=document.getElementById("card");
 const song1=document.getElementById("song1");
 const song2=document.getElementById("song2");
 
-  function closePopup(delay){
-  setTimeout(()=>{
-    popup.style.opacity = "0";
-    setTimeout(()=>{
-      popup.style.display = "none";
-      popup.style.opacity = "1";
-    },200);
-  },delay);
+function showPopup(content){
+  popupBox.innerHTML = content;
+
+  // 🔥 FULL reset for iOS
+  popup.classList.remove("show");
+  popupBox.style.transform = "scale(0.85)";
+  popupBox.style.opacity = "0";
+
+  void popup.offsetHeight; // force reflow
+
+  popup.classList.add("show");
 }
+
+function hidePopup(delay){
+  setTimeout(()=>{
+    popup.classList.remove("show");
+  }, delay);
+}
+
 
 song1.volume=.5;
 song2.volume=.5;
@@ -299,46 +302,37 @@ function loadQ(){
 
 function answer(i){
 
-  // Show popup (no animation here)
-  popup.style.display = "flex";
-
-  // ALWAYS create fresh animated content
-  popupBox.innerHTML = `<div class="popup-anim" id="popContent"></div>`;
-  const popContent = document.getElementById("popContent");
-
-  // ❌ Special NO option
   if(quiz[index].special && i===3){
-    popContent.innerText =
-      "❌ Invalid option.\nSystem override: You are already my Valentine 😌💖";
-    closePopup(1200);
+    showPopup("❌ Invalid option.<br>System override: You are already my Valentine 😌💖");
+    hidePopup(1200);
     return;
   }
 
-  // ✅ Correct answer
-  if(i===quiz[index].c){
-    popContent.innerHTML = `<div class="sky-heart">🩵</div>`;
+  if(i === quiz[index].c){
+    showPopup('<div class="sky-heart">🩵</div>');
+    hidePopup(600);
+
     setTimeout(()=>{
-      closePopup(600);
       index++;
       index < quiz.length ? loadQ() : finish();
-    },600);
-  }
+    }, 600);
 
-  // ❌ Wrong answer
-  else{
-    popContent.innerText =
-      funny[Math.floor(Math.random()*funny.length)];
-    closePopup(800);
+  } else {
+    showPopup(funny[Math.random()*funny.length|0]);
+    hidePopup(800);
   }
 }
+
+
 
 function finish(){
   card.innerHTML=`
   <div style="text-align:center;font-size:20px;font-weight:600">
-    Congratulations Sony Maa
+    Goodness Cuteeee
   </div>
   <p style="margin-top:18px;font-size:16px;line-height:1.7">
     You officially know me better than I know myself 🥹<br><br>
+    <b>Side effects may include:</b><br>
     Unlimited hugs 🫂, lifetime teasing 😜,<br>
     and being stuck with me forever ♾️💍<br><br>
     With all my heart,<br>
@@ -363,6 +357,7 @@ function typeText(text,id){
 
 </body>
 </html>
+
 
 
 
