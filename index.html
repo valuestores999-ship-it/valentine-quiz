@@ -29,11 +29,11 @@ body{
   overflow:hidden;
 }
 
-/* Floating hearts */
+/* floating hearts */
 .hearts span{
   position:fixed;
   bottom:-40px;
-  font-size:32px;
+  font-size:30px;
   opacity:.6;
   animation:floatUp linear infinite;
 }
@@ -41,7 +41,8 @@ body{
   to{transform:translateY(-120vh);}
 }
 
-/* Card */
+audio{display:none;}
+
 .card{
   width:94%;
   max-width:420px;
@@ -51,20 +52,10 @@ body{
   box-shadow:0 30px 60px rgba(0,0,0,.3);
 }
 
-/* Start screen */
+/* start screen */
 .start-title{text-align:center;font-size:18px;font-weight:600;}
-.start-name{
-  text-align:center;
-  font-size:26px;
-  font-weight:600;
-  margin:12px 0;
-}
-.start-caption{
-  text-align:center;
-  font-size:16px;
-  line-height:1.6;
-  margin-bottom:26px;
-}
+.start-name{text-align:center;font-size:26px;font-weight:600;margin:12px 0;}
+.start-caption{text-align:center;font-size:16px;line-height:1.6;margin-bottom:26px;}
 .start-btn{
   background:#6b6cff;
   color:#fff;
@@ -74,7 +65,7 @@ body{
   cursor:pointer;
 }
 
-/* Quiz */
+/* quiz */
 .heading{text-align:center;font-weight:600;margin-bottom:12px;}
 .question{text-align:center;font-size:18px;margin-bottom:18px;}
 
@@ -87,7 +78,7 @@ body{
   cursor:pointer;
 }
 
-/* Fix mobile hover bug */
+/* prevent mobile auto-hover */
 @media (hover:hover) and (pointer:fine){
   .option:hover{
     background:#6b6cff;
@@ -101,7 +92,7 @@ body{
   border-color:#6b6cff;
 }
 
-/* Popup */
+/* popup */
 .popup{
   position:fixed;
   inset:0;
@@ -118,7 +109,7 @@ body{
   text-align:center;
 }
 
-/* Signature */
+/* final signature */
 .signature{
   font-family:'Rockybilly',cursive;
   font-size:26px;
@@ -129,8 +120,7 @@ body{
 
 <body>
 
-<!-- SINGLE AUDIO PLAYER (iOS SAFE) -->
-<audio id="player"></audio>
+<audio id="player" playsinline></audio>
 
 <div class="hearts">
   <span style="left:10%;animation-duration:18s">🩵</span>
@@ -142,13 +132,18 @@ body{
 
 <div class="card" id="card">
 
+<!-- START -->
 <div id="startScreen">
   <div class="start-title">⚠️ Valentine-level cuteness ahead 💋</div>
   <div class="start-name">SONY MAA 🩵</div>
-  <div class="start-caption">A tiny quiz made with a lot of love 💕</div>
+  <div class="start-caption">
+    A tiny quiz made with a lot of love 💕<br>
+    Ready?
+  </div>
   <div class="start-btn" onclick="startQuiz()">Begin 💌</div>
 </div>
 
+<!-- QUIZ -->
 <div id="quizScreen" style="display:none;">
   <div class="heading" id="heading"></div>
   <div class="question" id="question"></div>
@@ -163,15 +158,15 @@ body{
 
 <script>
 /* AUDIO */
-const player=document.getElementById("player");
-const tracks=["song1.webm","song2.webm"];
-let trackIndex=0;
-player.volume=0.6;
+const player = document.getElementById("player");
+const tracks = ["song1.mp3","song2.mp3"];
+let trackIndex = 0;
 
+player.volume = 0.7;
 player.addEventListener("ended",()=>{
   trackIndex++;
-  if(trackIndex<tracks.length){
-    player.src=tracks[trackIndex];
+  if(trackIndex < tracks.length){
+    player.src = tracks[trackIndex];
     player.play();
   }
 });
@@ -186,11 +181,11 @@ const popup=document.getElementById("popup");
 const popupBox=document.getElementById("popupBox");
 const card=document.getElementById("card");
 
-/* QUESTIONS — ALL INCLUDED */
+/* QUESTIONS – ALL 13 */
 const quiz=[
  {h:"💝 Valentine Pop Quiz 💝",q:"Who loves you the most?",o:["Someone 🌙","The one who built this quiz 💻💘","Someone 😊","Someone ☀️"],c:1},
  {h:"💕 MCQ for my favorite human 💕",q:"Our love is…",o:["Soft 🤍","Chaotic 😜","Growing 🌱","Everything ❤️"],c:3},
- {h:"😘 Quick quiz, babe 😘",q:"My favorite place?",o:["Beach 🌊","Food place 🍕","With you 💑","Wi-Fi 📶"],c:2},
+ {h:"😘 Quick quiz, babe 😘",q:"My favorite place?",o:["Beach 🌊","Food 🍕","With you 💑","Wi-Fi 📶"],c:2},
  {h:"💘 Valentine MCQ 💘",q:"Who owns my heart?",o:["Someone 🧠","You 😍","Someone 😂","Someone 🏡"],c:1},
  {h:"🫶 Pop quiz time 🫶",q:"What makes me smile instantly?",o:["Memes 😄","Good news ✨","Your presence 🥰","You 💞"],c:3},
  {h:"💕 Valentine MCQ 💕",q:"When I imagine my future, I see…",o:["Peace 🌸","Growth 🌈","Forever ♾️","Us 💍"],c:3},
@@ -212,9 +207,8 @@ let index=0;
 
 function startQuiz(){
   trackIndex=0;
-  player.src=tracks[0];
-  player.play();   // ← USER GESTURE, AUDIO UNLOCKED
-
+  player.src = tracks[0];
+  player.play();   // USER GESTURE → AUDIO UNLOCKED
   startScreen.style.display="none";
   quizScreen.style.display="block";
   loadQ();
@@ -261,6 +255,7 @@ function finish(){
       Congratulations Sony Maa
     </div>
     <p style="margin-top:16px;font-size:16px;line-height:1.6">
+      You officially know me better than I know myself 🥹<br><br>
       Unlimited hugs 🤗, lifetime teasing 😜,<br>
       and being stuck with me forever ♾️💍<br><br>
       <div class="signature">Venkat To My Sony Maa 🩵🤗</div>
