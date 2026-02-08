@@ -101,6 +101,28 @@ body{
   transform:scale(0.97);
 }
 
+/* Prevent stuck highlight on mobile (iOS fix) */
+.option:focus,
+.option:focus-visible{
+  outline:none;
+  background:transparent;
+  color:inherit;
+  border-color:#d8dcff;
+}
+
+/* Ensure highlight is only momentary */
+.option{
+  -webkit-user-select:none;
+  user-select:none;
+}
+
+
+  background:#6b6cff;
+  color:#fff;
+  border-color:#6b6cff;
+  transform:scale(0.97);
+}
+
 
 /* Popup */
 .popup{
@@ -282,6 +304,7 @@ function typeText(text,id){
 
 </body>
 </html>
+
 
 
 
