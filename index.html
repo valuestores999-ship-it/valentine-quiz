@@ -112,9 +112,15 @@ body{
 
 /* Popup */
 .popup{
-  position:fixed;inset:0;background:rgba(0,0,0,.35);
-  display:none;justify-content:center;align-items:center;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.35);
+  display:none;
+  justify-content:center;
+  align-items:center;
+  z-index:999;   /* 🔥 THIS FIXES IT */
 }
+
 ..popup-box{
   background:#fff;
   padding:36px;
@@ -294,6 +300,7 @@ function typeText(text,id){
 
 </body>
 </html>
+
 
 
 
