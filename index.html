@@ -168,9 +168,23 @@ const card=document.getElementById("card");
 const song1=document.getElementById("song1");
 const song2=document.getElementById("song2");
 
-song1.volume=.5;
-song2.volume=.5;
-song1.onended=()=>song2.play();
+song1.volume = 0.5;
+song2.volume = 0.5;
+
+// Play song 2 after 63 seconds of song 1
+let songTimeout;
+
+function playMusicSequence(){
+  song1.currentTime = 0;
+  song1.play();
+
+  songTimeout = setTimeout(()=>{
+    song1.pause();
+    song2.currentTime = 0;
+    song2.play();
+  }, 63000); // 63 seconds
+}
+
 
 const quiz=[
 {h:"💝 Valentine Pop Quiz 💝",q:"Who loves you the most?",o:["The one who misses you silently 🌙","The one who built this quiz just for you 💻💘","The one who smiles when you smile 😊","The one who sends good morning texts ☀️"],c:1},
@@ -196,7 +210,7 @@ const funny=[
 let index=0;
 
 function startQuiz(){
-  song1.play();
+  playMusicSequence();
   startScreen.style.display="none";
   quizScreen.style.display="block";
   loadQ();
@@ -268,5 +282,6 @@ function typeText(text,id){
 
 </body>
 </html>
+
 
 
