@@ -57,7 +57,7 @@ body{
   to{opacity:1;transform:translateY(0);}
 }
 
-/* Start / Sound gate */
+/* Start screen */
 .start-title{font-size:20px;font-weight:600;text-align:center;}
 .start-name{font-size:26px;font-weight:600;text-align:center;margin:10px 0;}
 .start-caption{text-align:center;font-size:16px;line-height:1.6;margin-bottom:28px;}
@@ -122,8 +122,9 @@ body{
 
 <body>
 
-<!-- SINGLE AUDIO (MP3 ONLY – SAFE) -->
-<audio id="audio" preload="metadata"></audio>
+<!-- MUSIC -->
+<audio id="song1"><source src="Hayyoda_x_Remo_BGM_TAMIL_Jenushan_Anirudh_128KBPS.mp4" type="audio/mp4"></audio>
+<audio id="song2"><source src="Oorum_Blood_Unplugged_Dude_Pradeep_Ranganathan_Mamitha_Baiju_Sai_Abhyankkar_Keerthiswaran_256kbps.webm" type="audio/webm"></audio>
 
 <div class="hearts">
   <span style="left:10%;animation-duration:18s">🩵</span>
@@ -135,24 +136,13 @@ body{
 
 <div class="card" id="card">
 
-<!-- 🔊 SOUND GATE -->
-<div id="soundGate">
-  <div class="start-title">🎶</div>
-  <div class="start-caption">Tap to start with sound</div>
-  <div class="start-btn" onclick="enableSound()">Tap to start with sound</div>
-</div>
-
-<!-- START SCREEN -->
-<div id="startScreen" style="display:none;">
+<div id="startScreen">
   <div class="start-title">⚠️ Warning: Valentine-level cuteness ahead 💋</div>
   <div class="start-name">Sony Maa</div>
-  <div class="start-caption">
-    A tiny quiz made with a lot of love 💕<br>Ready?
-  </div>
+  <div class="start-caption">A tiny quiz made with a lot of love 💕<br>Ready?</div>
   <div class="start-btn" onclick="startQuiz()">Begin 💌</div>
 </div>
 
-<!-- QUIZ -->
 <div id="quizScreen" style="display:none;">
   <div class="heading" id="heading"></div>
   <div class="question" id="question"></div>
@@ -166,32 +156,7 @@ body{
 </div>
 
 <script>
-/* 🎵 AUDIO (ONLY CHANGE) */
-const audio = document.getElementById("audio");
-audio.volume = 0.5;
-const tracks = ["song1.mp3","song2.mp3"];
-let trackIndex = 0;
-
-audio.addEventListener("ended",()=>{
-  trackIndex++;
-  if(trackIndex < tracks.length){
-    audio.src = tracks[trackIndex];
-    audio.currentTime = 0;
-    audio.play();
-  }
-});
-
-function enableSound(){
-  trackIndex = 0;
-  audio.src = tracks[0];
-  audio.currentTime = 0;
-  audio.play();
-
-  document.getElementById("soundGate").style.display="none";
-  document.getElementById("startScreen").style.display="block";
-}
-
-/* EVERYTHING BELOW IS YOUR ORIGINAL CODE (UNCHANGED) */
+// DOM bindings
 const startScreen=document.getElementById("startScreen");
 const quizScreen=document.getElementById("quizScreen");
 const heading=document.getElementById("heading");
@@ -200,6 +165,12 @@ const options=document.getElementById("options");
 const popup=document.getElementById("popup");
 const popupBox=document.getElementById("popupBox");
 const card=document.getElementById("card");
+const song1=document.getElementById("song1");
+const song2=document.getElementById("song2");
+
+song1.volume=.5;
+song2.volume=.5;
+song1.onended=()=>song2.play();
 
 const quiz=[
 {h:"💝 Valentine Pop Quiz 💝",q:"Who loves you the most?",o:["The one who misses you silently 🌙","The one who built this quiz just for you 💻💘","The one who smiles when you smile 😊","The one who sends good morning texts ☀️"],c:1},
@@ -225,6 +196,7 @@ const funny=[
 let index=0;
 
 function startQuiz(){
+  song1.play();
   startScreen.style.display="none";
   quizScreen.style.display="block";
   loadQ();
