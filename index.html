@@ -38,7 +38,6 @@ body{
   animation:floatUp linear infinite;
 }
 @keyframes floatUp{
-  from{transform:translateY(0);}
   to{transform:translateY(-120vh);}
 }
 
@@ -50,16 +49,16 @@ body{
   border-radius:30px;
   padding:30px 26px 32px;
   box-shadow:0 30px 60px rgba(0,0,0,.3);
-  animation:fadeUp .8s ease;
+  animation:fadeUp .6s ease;
 }
 @keyframes fadeUp{
-  from{opacity:0;transform:translateY(30px);}
+  from{opacity:0;transform:translateY(20px);}
   to{opacity:1;transform:translateY(0);}
 }
 
 /* Start screen */
-.start-title{font-size:20px;font-weight:600;text-align:center;}
-.start-name{font-size:26px;font-weight:600;text-align:center;margin:10px 0;}
+.start-title{text-align:center;font-size:20px;font-weight:600;}
+.start-name{text-align:center;font-size:26px;font-weight:600;margin:10px 0;}
 .start-caption{text-align:center;font-size:16px;line-height:1.6;margin-bottom:28px;}
 .start-btn{
   background:#6b6cff;color:#fff;padding:14px;border-radius:18px;
@@ -70,51 +69,65 @@ body{
 .heading{text-align:center;font-weight:600;margin-bottom:14px;}
 .question{text-align:center;font-size:18px;margin-bottom:20px;}
 .option{
-  border:2px solid #d8dcff;padding:14px;border-radius:16px;
-  margin-bottom:14px;text-align:center;cursor:pointer;
-  opacity:0;animation:optionIn .6s forwards;
+  border:2px solid #d8dcff;
+  padding:14px;
+  border-radius:16px;
+  margin-bottom:14px;
+  text-align:center;
+  cursor:pointer;
+  opacity:0;
+  animation:optionIn .45s ease forwards;
+  transition:background .25s,color .25s,transform .2s;
 }
-.option:nth-child(1){animation-delay:.1s}
-.option:nth-child(2){animation-delay:.2s}
-.option:nth-child(3){animation-delay:.3s}
-.option:nth-child(4){animation-delay:.4s}
+.option:nth-child(1){animation-delay:.05s}
+.option:nth-child(2){animation-delay:.12s}
+.option:nth-child(3){animation-delay:.19s}
+.option:nth-child(4){animation-delay:.26s}
 
 @keyframes optionIn{
-  from{opacity:0;transform:translateY(12px);}
+  from{opacity:0;transform:translateY(10px);}
   to{opacity:1;transform:translateY(0);}
 }
 
-.option:hover{
-  background:#6b6cff;color:#fff;border-color:#6b6cff;
+@media (hover:hover){
+  .option:hover{background:#6b6cff;color:#fff;}
+}
+.option:active{
+  background:#6b6cff;
+  color:#fff;
+  transform:scale(.96);
 }
 
 /* Popup */
 .popup{
-  position:fixed;inset:0;background:rgba(0,0,0,.35);
-  display:none;justify-content:center;align-items:center;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.35);
+  display:none;
+  justify-content:center;
+  align-items:center;
 }
 .popup-box{
-  background:#fff;padding:36px;border-radius:26px;
-  font-size:22px;text-align:center;animation:pop .4s ease;
+  background:#fff;
+  padding:36px;
+  border-radius:26px;
+  font-size:22px;
+  text-align:center;
+  animation:pop .35s ease;
 }
 @keyframes pop{
-  0%{transform:scale(0);}
-  70%{transform:scale(1.25);}
-  100%{transform:scale(1);}
+  from{transform:scale(.6);opacity:0;}
+  to{transform:scale(1);opacity:1;}
 }
 
 /* Correct heart */
-.sky-heart{font-size:72px;animation:heartUp 1s ease;}
-@keyframes heartUp{
-  0%{transform:scale(.3);opacity:0;}
-  50%{transform:scale(1.3);opacity:1;}
-  100%{transform:translateY(-30px);opacity:0;}
-}
+.sky-heart{font-size:72px;}
 
 /* Signature */
 .signature{
   font-family:'Rockybilly',cursive;
-  font-size:28px;text-align:center;
+  font-size:28px;
+  text-align:center;
 }
 .cursor{border-right:2px solid #333;padding-right:4px;}
 </style>
@@ -122,9 +135,8 @@ body{
 
 <body>
 
-<!-- MUSIC -->
-<audio id="song1"><source src="Hayyoda_x_Remo_BGM_TAMIL_Jenushan_Anirudh_128KBPS.mp4" type="audio/mp4"></audio>
-<audio id="song2"><source src="Oorum_Blood_Unplugged_Dude_Pradeep_Ranganathan_Mamitha_Baiju_Sai_Abhyankkar_Keerthiswaran_256kbps.webm" type="audio/webm"></audio>
+<!-- ✅ SINGLE AUDIO (MP3 ONLY – MOBILE SAFE) -->
+<audio id="audio" playsinline preload="metadata"></audio>
 
 <div class="hearts">
   <span style="left:10%;animation-duration:18s">🩵</span>
@@ -139,7 +151,9 @@ body{
 <div id="startScreen">
   <div class="start-title">⚠️ Warning: Valentine-level cuteness ahead 💋</div>
   <div class="start-name">Sony Maa</div>
-  <div class="start-caption">A tiny quiz made with a lot of love 💕<br>Ready?</div>
+  <div class="start-caption">
+    A tiny quiz made with a lot of love 💕<br>Ready?
+  </div>
   <div class="start-btn" onclick="startQuiz()">Begin 💌</div>
 </div>
 
@@ -156,22 +170,22 @@ body{
 </div>
 
 <script>
-// DOM bindings
-const startScreen=document.getElementById("startScreen");
-const quizScreen=document.getElementById("quizScreen");
-const heading=document.getElementById("heading");
-const question=document.getElementById("question");
-const options=document.getElementById("options");
-const popup=document.getElementById("popup");
-const popupBox=document.getElementById("popupBox");
-const card=document.getElementById("card");
-const song1=document.getElementById("song1");
-const song2=document.getElementById("song2");
+/* 🎵 AUDIO (FIXED FOR MOBILE) */
+const audio=document.getElementById("audio");
+audio.volume=0.5;
+const tracks=["song1.mp3","song2.mp3"];
+let trackIndex=0;
 
-song1.volume=.5;
-song2.volume=.5;
-song1.onended=()=>song2.play();
+audio.addEventListener("ended",()=>{
+  trackIndex++;
+  if(trackIndex<tracks.length){
+    audio.src=tracks[trackIndex];
+    audio.currentTime=0;
+    audio.play();
+  }
+});
 
+/* QUIZ DATA – ALL QUESTIONS */
 const quiz=[
 {h:"💝 Valentine Pop Quiz 💝",q:"Who loves you the most?",o:["The one who misses you silently 🌙","The one who built this quiz just for you 💻💘","The one who smiles when you smile 😊","The one who sends good morning texts ☀️"],c:1},
 {h:"💕 MCQ for my favorite human 💕",q:"Our love is…",o:["Soft and comforting 🤍","Fun and chaotic 😜","Growing stronger every day 🌱","All of this together ❤️"],c:3},
@@ -193,10 +207,24 @@ const funny=[
 "😅 Cute guess","🤭 Not this one","💘 Try again","😏 You know it","🙃 Nope","🥰 Almost"
 ];
 
+/* LOGIC */
+const startScreen=document.getElementById("startScreen");
+const quizScreen=document.getElementById("quizScreen");
+const heading=document.getElementById("heading");
+const question=document.getElementById("question");
+const options=document.getElementById("options");
+const popup=document.getElementById("popup");
+const popupBox=document.getElementById("popupBox");
+const card=document.getElementById("card");
+
 let index=0;
 
 function startQuiz(){
-  song1.play();
+  trackIndex=0;
+  audio.src=tracks[0];
+  audio.currentTime=0;
+  audio.play();
+
   startScreen.style.display="none";
   quizScreen.style.display="block";
   loadQ();
@@ -239,17 +267,17 @@ function answer(i){
 
 function finish(){
   card.innerHTML=`
-  <div style="text-align:center;font-size:20px;font-weight:600">
-    Congratulations Sony Maa
-  </div>
-  <p style="margin-top:18px;font-size:16px;line-height:1.7">
-    You officially know me better than I know myself 🥹<br><br>
-    Unlimited hugs 🤗, lifetime teasing 😜,<br>
-    and being stuck with me forever ♾️💍<br><br>
-    With all my heart,<br>
-    <div class="signature" id="sign"></div>
-  </p>`;
-  typeText("Venkat to my Sony Maa","sign");
+    <div style="text-align:center;font-size:20px;font-weight:600">
+      Congratulations Sony Maa
+    </div>
+    <p style="margin-top:18px;font-size:16px;line-height:1.7">
+      You officially know me better than I know myself 🥹<br><br>
+      Unlimited hugs 🤗, lifetime teasing 😜,<br>
+      and being stuck with me forever ♾️💍<br><br>
+      With all my heart,<br>
+      <div class="signature" id="sign"></div>
+    </p>`;
+  typeText("Venkat To My Sony Maa 🩵🤗","sign");
 }
 
 function typeText(text,id){
