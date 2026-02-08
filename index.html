@@ -157,7 +157,7 @@ body{
 /* Heart animation (unchanged, but smoother) */
 .sky-heart{
   font-size:72px;
-  animation:heartPulse 1s ease;
+  animation:heartPulse 0.6s ease;
 }
 
 @keyframes heartPulse{
@@ -283,7 +283,16 @@ function loadQ(){
 }
 
 function answer(i){
-  popup.style.display="flex";
+  // 🔁 RESET popup (Safari animation fix)
+popup.style.display = "none";
+popup.offsetHeight;               // force reflow
+popup.style.display = "flex";
+
+// 🔁 RESET popup-box animation
+popupBox.style.animation = "none";
+popupBox.offsetHeight;            // force reflow
+popupBox.style.animation = "";
+
 
   if(quiz[index].special && i===3){
     popupBox.innerText="❌ Invalid option.\nSystem override: You are already my Valentine 😌💖";
@@ -335,6 +344,7 @@ function typeText(text,id){
 
 </body>
 </html>
+
 
 
 
