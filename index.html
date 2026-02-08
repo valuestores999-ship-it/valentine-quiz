@@ -110,27 +110,23 @@ body{
 }
 
 
-  background:#6b6cff;
-  color:#fff;
-  border-color:#6b6cff;
-  transform:scale(0.97);
-}
-
-
 /* Popup */
 .popup{
   position:fixed;inset:0;background:rgba(0,0,0,.35);
   display:none;justify-content:center;align-items:center;
 }
-.popup-box{
-  background:#fff;padding:36px;border-radius:26px;
-  font-size:22px;text-align:center;animation:pop .4s ease;
+..popup-box{
+  background:#fff;
+  padding:36px;
+  border-radius:26px;
+  font-size:22px;
+  text-align:center;
+
+  /* IMPORTANT */
+  animation:none;
+  transform:none;
 }
-@keyframes pop{
-  0%{transform:scale(0);}
-  70%{transform:scale(1.25);}
-  100%{transform:scale(1);}
-}
+
 
 /* Correct heart */
 .sky-heart{font-size:72px;animation:heartUp 1s ease;}
