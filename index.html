@@ -129,6 +129,8 @@ body{
   border-radius:26px;
   font-size:22px;
   text-align:center;
+}
+
 
   /* important */
   transform:scale(0.85);
@@ -159,15 +161,28 @@ body{
   font-size:72px;
   animation:heartPulse 0.6s ease;
 }
+/* Popup animation – mobile-safe (replays every tap) */
+.popup-anim{
+  animation:popupAnim 0.35s ease;
+}
+
+@keyframes popupAnim{
+  0%{
+    transform:scale(0.85);
+    opacity:0;
+  }
+  100%{
+    transform:scale(1);
+    opacity:1;
+  }
+}
 
 @keyframes heartPulse{
   0%{transform:scale(0.4);opacity:0;}
   50%{transform:scale(1.2);opacity:1;}
   100%{transform:scale(1);opacity:1;}
 }
-
-
-
+  
 /* Signature */
 .signature{
   font-family:'Rockybilly',cursive;
@@ -283,33 +298,37 @@ function loadQ(){
 }
 
 function answer(i){
-  // 🔁 RESET popup (Safari animation fix)
-popup.style.display = "none";
-popup.offsetHeight;               // force reflow
-popup.style.display = "flex";
 
-// 🔁 RESET popup-box animation
-popupBox.style.animation = "none";
-popupBox.offsetHeight;            // force reflow
-popupBox.style.animation = "";
+  // Show popup (no animation here)
+  popup.style.display = "flex";
 
+  // ALWAYS create fresh animated content
+  popupBox.innerHTML = `<div class="popup-anim" id="popContent"></div>`;
+  const popContent = document.getElementById("popContent");
 
+  // ❌ Special NO option
   if(quiz[index].special && i===3){
-    popupBox.innerText="❌ Invalid option.\nSystem override: You are already my Valentine 😌💖";
-   closePopup(1200);
+    popContent.innerText =
+      "❌ Invalid option.\nSystem override: You are already my Valentine 😌💖";
+    closePopup(1200);
     return;
   }
 
+  // ✅ Correct answer
   if(i===quiz[index].c){
-    popupBox.innerHTML='<div class="sky-heart">🩵</div>';
+    popContent.innerHTML = `<div class="sky-heart">🩵</div>`;
     setTimeout(()=>{
-     closePopup(900);
+      closePopup(600);
       index++;
-      index<quiz.length?loadQ():finish();
-    },900);
-  }else{
-    popupBox.innerText=funny[Math.random()*funny.length|0];
-   closePopup(800);
+      index < quiz.length ? loadQ() : finish();
+    },600);
+  }
+
+  // ❌ Wrong answer
+  else{
+    popContent.innerText =
+      funny[Math.floor(Math.random()*funny.length)];
+    closePopup(800);
   }
 }
 
@@ -344,6 +363,7 @@ function typeText(text,id){
 
 </body>
 </html>
+
 
 
 
