@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>Valentine Quiz 💘</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
@@ -61,13 +61,19 @@ body{
 .start-name{text-align:center;font-size:26px;font-weight:600;margin:10px 0;}
 .start-caption{text-align:center;font-size:16px;line-height:1.6;margin-bottom:28px;}
 .start-btn{
-  background:#6b6cff;color:#fff;padding:14px;border-radius:18px;
-  text-align:center;font-size:16px;cursor:pointer;
+  background:#6b6cff;
+  color:#fff;
+  padding:14px;
+  border-radius:18px;
+  text-align:center;
+  font-size:16px;
+  cursor:pointer;
 }
 
 /* Quiz */
 .heading{text-align:center;font-weight:600;margin-bottom:14px;}
 .question{text-align:center;font-size:18px;margin-bottom:20px;}
+
 .option{
   border:2px solid #d8dcff;
   padding:14px;
@@ -77,7 +83,6 @@ body{
   cursor:pointer;
   opacity:0;
   animation:optionIn .45s ease forwards;
-  transition:background .25s,color .25s,transform .2s;
 }
 .option:nth-child(1){animation-delay:.05s}
 .option:nth-child(2){animation-delay:.12s}
@@ -95,7 +100,6 @@ body{
 .option:active{
   background:#6b6cff;
   color:#fff;
-  transform:scale(.96);
 }
 
 /* Popup */
@@ -113,14 +117,9 @@ body{
   border-radius:26px;
   font-size:22px;
   text-align:center;
-  animation:pop .35s ease;
-}
-@keyframes pop{
-  from{transform:scale(.6);opacity:0;}
-  to{transform:scale(1);opacity:1;}
 }
 
-/* Correct heart */
+/* Heart */
 .sky-heart{font-size:72px;}
 
 /* Signature */
@@ -129,14 +128,13 @@ body{
   font-size:28px;
   text-align:center;
 }
-.cursor{border-right:2px solid #333;padding-right:4px;}
 </style>
 </head>
 
 <body>
 
-<!-- ✅ SINGLE AUDIO (MP3 ONLY – MOBILE SAFE) -->
-<audio id="audio" playsinline preload="metadata"></audio>
+<!-- SINGLE AUDIO (STABLE) -->
+<audio id="audio" preload="auto"></audio>
 
 <div class="hearts">
   <span style="left:10%;animation-duration:18s">🩵</span>
@@ -149,11 +147,9 @@ body{
 <div class="card" id="card">
 
 <div id="startScreen">
-  <div class="start-title">⚠️ Warning: Valentine-level cuteness ahead 💋</div>
+  <div class="start-title">⚠️ Valentine-level cuteness ahead 💋</div>
   <div class="start-name">Sony Maa</div>
-  <div class="start-caption">
-    A tiny quiz made with a lot of love 💕<br>Ready?
-  </div>
+  <div class="start-caption">A tiny quiz made with a lot of love 💕<br>Ready?</div>
   <div class="start-btn" onclick="startQuiz()">Begin 💌</div>
 </div>
 
@@ -170,9 +166,10 @@ body{
 </div>
 
 <script>
-/* 🎵 AUDIO (FIXED FOR MOBILE) */
+/* AUDIO — SIMPLE & STABLE */
 const audio=document.getElementById("audio");
-audio.volume=0.5;
+audio.volume=0.6;
+
 const tracks=["song1.mp3","song2.mp3"];
 let trackIndex=0;
 
@@ -185,58 +182,30 @@ audio.addEventListener("ended",()=>{
   }
 });
 
-/* QUIZ DATA – ALL QUESTIONS */
+/* QUIZ DATA */
 const quiz=[
-{h:"💝 Valentine Pop Quiz 💝",q:"Who loves you the most?",o:["The one who misses you silently 🌙","The one who built this quiz just for you 💻💘","The one who smiles when you smile 😊","The one who sends good morning texts ☀️"],c:1},
-{h:"💕 MCQ for my favorite human 💕",q:"Our love is…",o:["Soft and comforting 🤍","Fun and chaotic 😜","Growing stronger every day 🌱","All of this together ❤️"],c:3},
-{h:"😘 Quick quiz, babe 😘",q:"My favorite place?",o:["Somewhere calm 🌊","Food places 🍕","Wherever you are 💑","Anywhere with Wi-Fi 📶"],c:2},
-{h:"💘 Valentine MCQ 💘",q:"Who owns my heart?",o:["Understands me 🧠❤️","You 😍","Makes me laugh 😂","Feels like home 🏡"],c:1},
-{h:"🫶 Pop quiz time 🫶",q:"What makes me smile instantly?",o:["Random memes 😄","Good news 📰✨","Your presence 🥰","You, without even trying 💞"],c:3},
-{h:"💕 Valentine MCQ 💕",q:"When I imagine my future, I see…",o:["Peace 🌸","Growth 🌈","Forever ♾️","Us 💍"],c:3},
-{h:"😘 Love quiz 😘",q:"The safest place in the world is…",o:["Home 🏠","Understanding 🤍","Next to you 🫶","Silence 🌌"],c:2},
-{h:"💘 Romantic pop quiz 💘",q:"Who makes my heart feel at home?",o:["Listener 👂","Stayer 🫂","Chooser 🌹","You 😌"],c:3},
-{h:"💝 MCQ but make it love 💝",q:"My favorite ‘I love you’ is…",o:["Care 🍽️","Memory 🧠💕","Silence 🤫❤️","All of it 💘"],c:3},
-{h:"💞 Valentine test 💞",q:"What do I want more than anything?",o:["Peace 🧘","Time ⏳","Future 🌟","Lifetime with you 💍"],c:3},
-{h:"❤️ Heart quiz ❤️",q:"Who makes ordinary days magical?",o:["Surprises 🎁","Talks 💬","You ✨","Love 💖"],c:2},
-{h:"💕 Romantic MCQ 💕",q:"My forever Valentine is…",o:["Knows flaws 😌","Stays 🤍","Destiny 🌙","You ♾️"],c:3},
-{h:"💍 One last thing… 💍",q:"Will you be my Valentine, Sony Maa?",o:["I already am 💕","Of course 😍","Always 😘","No 🙈"],c:0,special:true}
+{h:"💝 Valentine Pop Quiz 💝",q:"Who loves you the most?",o:["Moon 🌙","Me 💘","Smile 😊","Morning ☀️"],c:1},
+{h:"💕 MCQ for my favorite human 💕",q:"Our love is…",o:["Soft 🤍","Crazy 😜","Growing 🌱","All ❤️"],c:3},
+{h:"😘 Quick quiz 😘",q:"My favorite place?",o:["Beach 🌊","Food 🍕","With you 💑","WiFi 📶"],c:2},
+{h:"💘 Valentine MCQ 💘",q:"Who owns my heart?",o:["Someone","You 😍","Someone","Someone"],c:1},
+{h:"🫶 Pop quiz 🫶",q:"What makes me smile instantly?",o:["Memes 😄","News 📰","Presence 🥰","You 💞"],c:3},
+{h:"💍 Final 💍",q:"Will you be my Valentine, Sony Maa?",o:["I already am 💕","Of course 😍","Always 😘","No 🙈"],c:0,special:true}
 ];
 
-const funny=[
-"😂 Nope!","🙈 Try again!","😜 Almost!","💭 Think like my Valentine!",
-"😅 Cute guess","🤭 Not this one","💘 Try again","😏 You know it","🙃 Nope","🥰 Almost"
-];
-
-/* LOGIC */
-const startScreen=document.getElementById("startScreen");
-const quizScreen=document.getElementById("quizScreen");
-const heading=document.getElementById("heading");
-const question=document.getElementById("question");
-const options=document.getElementById("options");
-const popup=document.getElementById("popup");
-const popupBox=document.getElementById("popupBox");
-const card=document.getElementById("card");
+const funny=["😂 Nope!","🙈 Try again!","😜 Almost!"];
 
 let index=0;
 
 function startQuiz(){
-  // 🔓 MOBILE AUDIO UNLOCK (CRITICAL)
-  audio.muted = true;
-  audio.src = tracks[0];
-  audio.play().then(() => {
-    audio.pause();
-    audio.currentTime = 0;
-    audio.muted = false;
-
-    // ▶️ REAL PLAY (NOW MOBILE ALLOWS IT)
-    audio.play();
-  }).catch(()=>{});
+  trackIndex=0;
+  audio.src=tracks[0];
+  audio.currentTime=0;
+  audio.play(); // ← DESKTOP & MOBILE SAFE
 
   startScreen.style.display="none";
   quizScreen.style.display="block";
   loadQ();
 }
-
 
 function loadQ(){
   heading.innerText=quiz[index].h;
@@ -253,20 +222,18 @@ function loadQ(){
 
 function answer(i){
   popup.style.display="flex";
-
   if(quiz[index].special && i===3){
-    popupBox.innerText="❌ Invalid option.\nSystem override: You are already my Valentine 😌💖";
-    setTimeout(()=>popup.style.display="none",1200);
+    popupBox.innerText="Invalid ❌ Already mine 😌";
+    setTimeout(()=>popup.style.display="none",1000);
     return;
   }
-
   if(i===quiz[index].c){
     popupBox.innerHTML='<div class="sky-heart">🩵</div>';
     setTimeout(()=>{
       popup.style.display="none";
       index++;
       index<quiz.length?loadQ():finish();
-    },900);
+    },700);
   }else{
     popupBox.innerText=funny[Math.random()*funny.length|0];
     setTimeout(()=>popup.style.display="none",800);
@@ -279,29 +246,12 @@ function finish(){
       Congratulations Sony Maa
     </div>
     <p style="margin-top:18px;font-size:16px;line-height:1.7">
-      You officially know me better than I know myself 🥹<br><br>
       Unlimited hugs 🤗, lifetime teasing 😜,<br>
       and being stuck with me forever ♾️💍<br><br>
-      With all my heart,<br>
-      <div class="signature" id="sign"></div>
+      <div class="signature">Venkat To My Sony Maa 🩵🤗</div>
     </p>`;
-  typeText("Venkat To My Sony Maa 🩵🤗","sign");
-}
-
-function typeText(text,id){
-  const el=document.getElementById(id);
-  el.classList.add("cursor");
-  let i=0;
-  const t=setInterval(()=>{
-    el.textContent+=text[i++];
-    if(i===text.length){
-      clearInterval(t);
-      el.classList.remove("cursor");
-    }
-  },120);
 }
 </script>
 
 </body>
 </html>
-
